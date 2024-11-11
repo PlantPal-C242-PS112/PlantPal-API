@@ -1,11 +1,10 @@
 const userService = require('../service/user-service');
+const { sendSuccessResponse } = require('../utils/response-helpers');
 
 const register = async (request, response, next) => {
   try {
     const result = await userService.register(request.body);
-    response.status(200).json({
-      data: result,
-    })
+    sendSuccessResponse(response, result, 201, "User Registered Successfully");
   } catch (error) {
     next(error);
   }
@@ -14,9 +13,7 @@ const register = async (request, response, next) => {
 const login = async (request, response, next) => {
   try {
     const result = await userService.login(request.body);
-    response.status(200).json({
-      data: result,
-    })
+    sendSuccessResponse(response, result, 200, "User Logged In Successfully");
   } catch (error) {
     next(error);
   }

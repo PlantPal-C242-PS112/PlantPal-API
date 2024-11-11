@@ -1,4 +1,5 @@
 const { ResponseError } = require('../error/response-error');
+const { sendErrorResponse } = require('../utils/response-helpers');
 
 const errorMiddleware = (error, request, response, next) => {
   if (!error) {
@@ -7,13 +8,9 @@ const errorMiddleware = (error, request, response, next) => {
   }
 
   if (error instanceof ResponseError) {
-    response.status(error.status).json({
-      error: error.message,
-    }).end();
+    sendErrorResponse(response, error.status, error.message);
   } else {
-    response.status(500).json({
-      error: error.message,
-    }).end();
+    sendErrorResponse(response, 500, 'Internal Server Error');
   }
 };
 
