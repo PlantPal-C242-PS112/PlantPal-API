@@ -11,4 +11,18 @@ const register = async (request, response, next) => {
   }
 };
 
-module.exports = { register };
+const login = async (request, response, next) => {
+  try {
+    const result = await userService.login(request.body);
+    response.status(200).json({
+      data: result,
+    })
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = {
+  register,
+  login,
+};
