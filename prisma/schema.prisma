@@ -12,3 +12,20 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                       Int       @id @default(autoincrement())
+  username                 String    @unique @db.VarChar(255)
+  fullname                 String    @db.VarChar(255)
+  email                    String    @unique
+  password                 String    @db.VarChar(255)
+  profile_photo            String?   @db.VarChar(255)
+  otp                      String?   @db.VarChar(5)
+  otp_expiry               DateTime?
+  email_verified           Boolean   @default(false)
+  forgot_password_verified Boolean   @default(false)
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  @@map("users")
+}
