@@ -19,7 +19,17 @@ const login = async (request, response, next) => {
   }
 }
 
+const getUserDetails = async (request, response, next) => {
+  try {
+    const result = await userService.getUserDetails(request.user.id);
+    sendSuccessResponse(response, result, 200, "User Details Fetched Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   login,
+  getUserDetails,
 };

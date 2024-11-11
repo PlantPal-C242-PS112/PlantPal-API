@@ -75,7 +75,29 @@ const login = async (request) => {
   return user;
 };
 
+const getUserDetails = async (userId) => {
+  const user = prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      fullname: true,
+      profile_photo: true,
+    },
+  });
+
+  if (!user) {
+    throw new ResponseError(404, 'User not found');
+  }
+
+  return user;
+};
+
 module.exports = {
   register,
   login,
+  getUserDetails,
 };
