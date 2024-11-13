@@ -76,7 +76,6 @@ jobs:
         uses: 'google-github-actions/auth@v2'
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-          token_format: 'access_token'
 
       - name: create .env file
         run: |
