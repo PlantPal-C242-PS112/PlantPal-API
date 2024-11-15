@@ -64,6 +64,7 @@ const login = async (request) => {
     id: user.id,
     username: user.username,
     email: user.email,
+    email_verified: user.email_verified,
   }, process.env.JWT_SECRET);
 
   user = {
