@@ -28,18 +28,18 @@ const getUserDetails = async (request, response, next) => {
   }
 };
 
-const sendOTP = async (request, response, next) => {
+const sendEmailVerificationOTP = async (request, response, next) => {
   try {
-    const result = await userService.sendOTP(request.body);
+    const result = await userService.sendOTP(request.body, "email verification");
     sendSuccessResponse(response, null, 200, "OTP Sent Successfully");
   } catch (error) {
     next(error);
   }
 };
 
-const verifyOTP = async (request, response, next) => {
+const verifyEmailVerificationOTP = async (request, response, next) => {
   try {
-    const result = await userService.verifyOTP(request.body);
+    const result = await userService.verifyOTP(request.body, "email verification");
     sendSuccessResponse(response, null, 200, "OTP Verified Successfully");
   } catch (error) {
     next(error);
@@ -50,6 +50,6 @@ module.exports = {
   register,
   login,
   getUserDetails,
-  sendOTP,
-  verifyOTP,
+  sendEmailVerificationOTP,
+  verifyEmailVerificationOTP,
 };

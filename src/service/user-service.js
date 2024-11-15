@@ -100,7 +100,7 @@ const getUserDetails = async (userId) => {
   return user;
 };
 
-const sendOTP = async (request) => {
+const sendOTP = async (request, action) => {
   const { email } = validate(sendOTPValidation, request);
 
   let user = await prisma.user.findUnique({
@@ -127,12 +127,12 @@ const sendOTP = async (request) => {
     },
   });
 
-  await mailer.sendMail(email, 'PlantPal Registration OTP', './src/template/register-otp.html', otp);
+  await mailer.sendMail(email, 'PlantPal Registration OTP', './src/template/otp.html', otp, action);
 
   return otp;
 };
 
-const verifyOTP = async (request) => {
+const verifyOTP = async (request, action) => {
   const { email, otp } = validate(verifyOTPValidation, request);
 
   let user = await prisma.user.findUnique({
@@ -153,16 +153,29 @@ const verifyOTP = async (request) => {
     throw new ResponseError(400, 'OTP expired');
   }
 
-  user = await prisma.user.update({
-    where: {
-      email,
-    },
-    data: {
-      email_verified: true,
-      otp: null,
-      otp_expiry: null,
-    },
-  });
+  if (action === 'email verification') {
+    user = await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        email_verified: true,
+        otp: null,
+        otp_expiry: null,
+      },
+    });
+  } else if (action === 'forgot password') {
+    user = await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        forgot_password_verified: true,
+        otp: null,
+        otp_expiry: null,
+      },
+    });
+  }
 
   return user;
 };
