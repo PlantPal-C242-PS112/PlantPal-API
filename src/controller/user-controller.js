@@ -37,9 +37,19 @@ const sendOTP = async (request, response, next) => {
   }
 };
 
+const verifyOTP = async (request, response, next) => {
+  try {
+    const result = await userService.verifyOTP(request.body);
+    sendSuccessResponse(response, null, 200, "OTP Verified Successfully");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   register,
   login,
   getUserDetails,
   sendOTP,
+  verifyOTP,
 };

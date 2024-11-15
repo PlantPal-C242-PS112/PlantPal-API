@@ -3,6 +3,7 @@ const {
   registerUserValidation,
   loginUserValidation,
   sendOTPValidation,
+  verifyOTPValidation,
 } = require('../validation/user-validation');
 const prisma = require('../application/database');
 const mailer = require('../application/mailer');
@@ -131,9 +132,45 @@ const sendOTP = async (request) => {
   return otp;
 };
 
+const verifyOTP = async (request) => {
+  const { email, otp } = validate(verifyOTPValidation, request);
+
+  let user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    throw new ResponseError(404, 'User not found');
+  }
+
+  if (user.otp !== otp) {
+    throw new ResponseError(400, 'Invalid OTP');
+  }
+
+  if (user.otp_expiry < new Date()) {
+    throw new ResponseError(400, 'OTP expired');
+  }
+
+  user = await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      email_verified: true,
+      otp: null,
+      otp_expiry: null,
+    },
+  });
+
+  return user;
+};
+
 module.exports = {
   register,
   login,
   getUserDetails,
   sendOTP,
+  verifyOTP,
 };

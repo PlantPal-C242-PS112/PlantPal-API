@@ -21,8 +21,14 @@ const sendOTPValidation = Joi.object({
   email: Joi.string().email().required(),
 });
 
+const verifyOTPValidation = Joi.object({
+  email: Joi.string().email().required(),
+  otp: Joi.string().length(5).required(),
+});
+
 module.exports = {
   registerUserValidation,
   loginUserValidation,
   sendOTPValidation,
+  verifyOTPValidation,
 };
