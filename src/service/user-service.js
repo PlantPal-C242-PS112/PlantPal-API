@@ -102,7 +102,7 @@ const getUserDetails = async (userId) => {
 const sendOTP = async (request) => {
   const { email } = validate(sendOTPValidation, request);
 
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
     where: {
       email,
     },
@@ -112,12 +112,24 @@ const sendOTP = async (request) => {
     throw new ResponseError(404, 'User not found');
   }
 
-  const otp = Math.floor(100000 + Math.random() * 900000);
+  const otp = Math.floor(10000 + Math.random() * 90000).toString();
+  const otp_expiry = new Date();
+  otp_expiry.setMinutes(otp_expiry.getMinutes() + 5);
+
+  user = await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      otp,
+      otp_expiry
+    },
+  });
 
   await mailer.sendMail(email, 'PlantPal Registration OTP', './src/template/register-otp.html', otp);
 
   return otp;
-}
+};
 
 module.exports = {
   register,
