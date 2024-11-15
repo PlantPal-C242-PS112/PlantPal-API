@@ -153,7 +153,7 @@ const verifyOTP = async (request, action) => {
     throw new ResponseError(400, 'OTP expired');
   }
 
-  if (action === 'email verification') {
+  if (action === 'verifikasi email') {
     user = await prisma.user.update({
       where: {
         email,
@@ -164,7 +164,7 @@ const verifyOTP = async (request, action) => {
         otp_expiry: null,
       },
     });
-  } else if (action === 'forgot password') {
+  } else if (action === 'lupa password') {
     user = await prisma.user.update({
       where: {
         email,

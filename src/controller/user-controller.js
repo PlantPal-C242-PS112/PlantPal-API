@@ -30,7 +30,7 @@ const getUserDetails = async (request, response, next) => {
 
 const sendEmailVerificationOTP = async (request, response, next) => {
   try {
-    const result = await userService.sendOTP(request.body, "email verification");
+    const result = await userService.sendOTP(request.body, "verifikasi email");
     sendSuccessResponse(response, null, 200, "OTP Sent Successfully");
   } catch (error) {
     next(error);
@@ -39,12 +39,30 @@ const sendEmailVerificationOTP = async (request, response, next) => {
 
 const verifyEmailVerificationOTP = async (request, response, next) => {
   try {
-    const result = await userService.verifyOTP(request.body, "email verification");
+    const result = await userService.verifyOTP(request.body, "verifikasi email");
     sendSuccessResponse(response, null, 200, "OTP Verified Successfully");
   } catch (error) {
     next(error);
   }
-}
+};
+
+const sendForgotPasswordOTP = async (request, response, next) => {
+  try {
+    const result = await userService.sendOTP(request.body, "lupa password");
+    sendSuccessResponse(response, null, 200, "OTP Sent Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const verifyForgotPasswordOTP = async (request, response, next) => {
+  try {
+    const result = await userService.verifyOTP(request.body, "lupa password");
+    sendSuccessResponse(response, null, 200, "OTP Verified Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   register,
@@ -52,4 +70,6 @@ module.exports = {
   getUserDetails,
   sendEmailVerificationOTP,
   verifyEmailVerificationOTP,
+  sendForgotPasswordOTP,
+  verifyForgotPasswordOTP
 };

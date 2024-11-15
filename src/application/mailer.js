@@ -13,7 +13,9 @@ const sendMail = async (to, subject, htmlFilePath, otp, action) => {
 
   let htmlContent = fs.readFileSync(path.resolve(htmlFilePath), 'utf-8');
   htmlContent = htmlContent.replace('{{OTP}}', otp);
-  htmlContent = htmlContent.replace('{{ACTION}}', action);
+  for (let i = 0; i < 2; i++) {
+    htmlContent = htmlContent.replace('{{ACTION}}', action);
+  }
 
   const mailOptions = {
     from: `PlantPal App <${process.env.SMTP_EMAIL}>`,
