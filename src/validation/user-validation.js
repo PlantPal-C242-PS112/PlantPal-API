@@ -17,7 +17,12 @@ const loginUserValidation = Joi.object({
   password: Joi.string().min(5).max(255).required(),
 });
 
+const sendOTPValidation = Joi.object({
+  email: Joi.string().email().required(),
+});
+
 module.exports = {
   registerUserValidation,
   loginUserValidation,
+  sendOTPValidation,
 };

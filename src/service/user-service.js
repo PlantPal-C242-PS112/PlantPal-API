@@ -2,8 +2,10 @@ const { validate } = require('../validation/validation');
 const {
   registerUserValidation,
   loginUserValidation,
+  sendOTPValidation,
 } = require('../validation/user-validation');
 const prisma = require('../application/database');
+const mailer = require('../application/mailer');
 const { ResponseError } = require('../error/response-error');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -96,8 +98,29 @@ const getUserDetails = async (userId) => {
   return user;
 };
 
+const sendOTP = async (request) => {
+  const { email } = validate(sendOTPValidation, request);
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    throw new ResponseError(404, 'User not found');
+  }
+
+  const otp = Math.floor(100000 + Math.random() * 900000);
+
+  await mailer.sendMail(email, 'PlantPal Registration OTP', './src/template/register-otp.html', otp);
+
+  return otp;
+}
+
 module.exports = {
   register,
   login,
   getUserDetails,
+  sendOTP,
 };

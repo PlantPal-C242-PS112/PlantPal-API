@@ -1,10 +1,16 @@
-const sendSuccessResponse = (response, data, statusCode = 200, message) => {
-  response.status(statusCode).json({
+const sendSuccessResponse = (response, data = null, statusCode = 200, message) => {
+  const responseBody = {
     status: true,
     message: message,
-    data: data,
-  });
+  };
+
+  if (data !== null) {
+    responseBody.data = data;
+  }
+
+  response.status(statusCode).json(responseBody);
 };
+
 
 const sendErrorResponse = (response, statusCode, message) => {
   response.status(statusCode).json({

@@ -28,8 +28,18 @@ const getUserDetails = async (request, response, next) => {
   }
 };
 
+const sendOTP = async (request, response, next) => {
+  try {
+    const result = await userService.sendOTP(request.body);
+    sendSuccessResponse(response, null, 200, "OTP Sent Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   login,
   getUserDetails,
+  sendOTP,
 };
