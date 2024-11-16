@@ -1,11 +1,5 @@
 const { validate } = require('../validation/validation');
-const {
-  registerUserValidation,
-  loginUserValidation,
-  sendOTPValidation,
-  verifyOTPValidation,
-  changeForgotPasswordValidation,
-} = require('../validation/user-validation');
+const validation = require('../validation/user-validation');
 const prisma = require('../application/database');
 const mailer = require('../application/mailer');
 const { ResponseError } = require('../error/response-error');
@@ -16,7 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const register = async (request) => {
-  const user = validate(registerUserValidation, request);
+  const user = validate(validation.registerUserValidation, request);
 
   const emailExist = await prisma.user.findUnique({
     where: {
@@ -46,7 +40,7 @@ const register = async (request) => {
 };
 
 const login = async (request) => {
-  const { identifier, password } = validate(loginUserValidation, request);
+  const { identifier, password } = validate(validation.loginUserValidation, request);
 
   let user = await prisma.user.findUnique({
     where: identifier.includes('@') ? { email: identifier } : { username: identifier },
@@ -102,7 +96,7 @@ const getUserDetails = async (userId) => {
 };
 
 const sendOTP = async (request, action) => {
-  const { email } = validate(sendOTPValidation, request);
+  const { email } = validate(validation.sendOTPValidation, request);
 
   let user = await prisma.user.findUnique({
     where: {
@@ -134,7 +128,7 @@ const sendOTP = async (request, action) => {
 };
 
 const verifyOTP = async (request, action) => {
-  const { email, otp } = validate(verifyOTPValidation, request);
+  const { email, otp } = validate(validation.verifyOTPValidation, request);
 
   let user = await prisma.user.findUnique({
     where: {
@@ -182,7 +176,7 @@ const verifyOTP = async (request, action) => {
 };
 
 const changeForgotPassword = async (request) => {
-  const { email, password } = validate(changeForgotPasswordValidation, request);
+  const { email, password } = validate(validation.changeForgotPasswordValidation, request);
   
   const user = await prisma.user.findUnique({
     where: {
