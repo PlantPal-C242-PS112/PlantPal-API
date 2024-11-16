@@ -79,6 +79,10 @@ jobs:
 
       # BEGIN - Docker auth and build (NOTE: If you already have a container image, these Docker steps can be omitted)
 
+      # Create cloud-storage-key.json
+      - name: Create cloud-storage-key.json
+        run: echo '${{ secrets.GCS_KEY }}' > cloud-storage-key.json
+
       # Authenticate Docker to Google Cloud Artifact Registry
       - name: Docker Auth
         run: |-
