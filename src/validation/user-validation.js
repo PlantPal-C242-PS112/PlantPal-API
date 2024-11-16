@@ -36,6 +36,11 @@ const changePasswordValidation = Joi.object({
   new_password: Joi.string().min(5).max(255).required(),
 });
 
+const updateProfileValidation = Joi.object({
+  fullname: Joi.string().min(5).max(255).required(),
+});
+
+
 module.exports = {
   registerUserValidation,
   loginUserValidation,
@@ -43,4 +48,5 @@ module.exports = {
   verifyOTPValidation,
   changeForgotPasswordValidation,
   changePasswordValidation,
+  updateProfileValidation,
 };

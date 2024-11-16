@@ -24,8 +24,8 @@ model User {
   otp_expiry               DateTime?
   email_verified           Boolean   @default(false)
   forgot_password_verified Boolean   @default(false)
-  createdAt                DateTime  @default(now())
-  updatedAt                DateTime  @updatedAt
+  created_at                DateTime  @default(now())
+  updated_at                DateTime  @updatedAt
 
   @@map("users")
 }

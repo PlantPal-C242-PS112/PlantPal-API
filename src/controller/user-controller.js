@@ -82,6 +82,20 @@ const changePassword = async (request, response, next) => {
   }
 };
 
+const updateProfile = async (request, response, next) => {
+  try {
+    const userData = request.body;
+    const file = request.file;
+    const userId = request.user.id;
+
+    const result = await userService.updateProfile(userData, file, userId);
+
+    sendSuccessResponse(response, null, 200, "Profile Updated Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -92,4 +106,5 @@ module.exports = {
   verifyForgotPasswordOTP,
   changeForgotPassword,
   changePassword,
+  updateProfile,
 };

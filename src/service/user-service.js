@@ -6,6 +6,7 @@ const { ResponseError } = require('../error/response-error');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const storage = require('../application/storage');
 
 dotenv.config();
 
@@ -240,6 +241,40 @@ const changePassword = async (request, userId) => {
   });
 };
 
+const updateProfile = async (userData, file, userId) => {
+  const { fullname } = validate(validation.updateProfileValidation, userData);
+
+  let user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user) {
+    throw new ResponseError(404, 'User not found');
+  }
+
+  let photoUrl;
+  if (file) {
+    await storage.deleteFile(user.profile_photo);
+    photoUrl = await storage.uploadFile(file, "profile-pictures");
+  }
+
+  const data = { fullname };
+  if (photoUrl) {
+    data.profile_photo = photoUrl;
+  }
+
+  user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data,
+  });
+
+  return user;
+}
+
 module.exports = {
   register,
   login,
@@ -248,4 +283,5 @@ module.exports = {
   verifyOTP,
   changeForgotPassword,
   changePassword,
+  updateProfile,
 };
