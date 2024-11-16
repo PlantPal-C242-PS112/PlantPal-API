@@ -23,8 +23,11 @@ const getPlantById = async (id) => {
 		},
 		include: {
 			plant_media: {
+				where: {
+					is_cultivation: false
+				},
 				select: {
-					cultivation: true,
+					is_cultivation: false,
 					type: true,
 					url: true
 				}
@@ -33,7 +36,34 @@ const getPlantById = async (id) => {
 	});
 
 	if (!plant) {
-		throw new ResponseError(404, 'Plant not found');
+		throw new ResponseError(404, 'Plant Not Found');
+	}
+
+	return plant;
+}
+// get cultivation tips of a plant and its plant media
+const getCultivationTips = async (id) => {
+	const plant = await prisma.plant.findUnique({
+		where: {
+			id: parseInt(id)
+		},
+		select: {
+			cultivation_tips: true,
+			plant_media: {
+				where: {
+					is_cultivation: true
+				},
+				select: {
+					is_cultivation: false,
+					type: true,
+					url: true
+				}
+			}
+		},
+	});
+
+	if (!plant) {
+		throw new ResponseError(404, 'Plant Not Found');
 	}
 
 	return plant;
@@ -41,5 +71,6 @@ const getPlantById = async (id) => {
 
 module.exports = {
 	getAllPlants,
-	getPlantById
+	getPlantById,
+	getCultivationTips
 }

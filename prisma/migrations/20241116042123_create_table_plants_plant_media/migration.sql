@@ -14,7 +14,7 @@ CREATE TABLE `plants` (
 CREATE TABLE `plant_media` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     `plant_id` INTEGER UNSIGNED NOT NULL,
-    `cultivation` BOOLEAN NOT NULL DEFAULT false,
+    `is_cultivation` BOOLEAN NOT NULL DEFAULT false,
     `type` VARCHAR(255) NOT NULL,
     `url` VARCHAR(255) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

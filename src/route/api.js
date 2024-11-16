@@ -20,6 +20,7 @@ userRouter.put('/update-profile', upload.single('profile_picture'), userControll
 plantRouter.use(jwtMiddleware);
 plantRouter.get('', plantController.get);
 plantRouter.get('/:id', plantController.getById);
+plantRouter.get('/:id/cultivation-tips', plantController.getCultivationTips);
 
 module.exports = {
 	userRouter, 

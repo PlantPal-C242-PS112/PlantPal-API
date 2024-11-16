@@ -24,8 +24,8 @@ model User {
   otp_expiry               DateTime?
   email_verified           Boolean   @default(false)
   forgot_password_verified Boolean   @default(false)
-  created_at                DateTime  @default(now())
-  updated_at                DateTime  @updatedAt
+  created_at               DateTime  @default(now())
+  updated_at               DateTime  @updatedAt
 
   @@map("users")
 }
@@ -43,14 +43,14 @@ model Plant {
 }
 
 model PlantMedia {
-  id          Int      @id @default(autoincrement()) @db.UnsignedInt
-  plant_id    Int      @db.UnsignedInt
-  plant       Plant    @relation(fields: [plant_id], references: [id])
-  cultivation Boolean  @default(false)
-  type        String   @db.VarChar(255)
-  url         String   @db.VarChar(255)
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id             Int      @id @default(autoincrement()) @db.UnsignedInt
+  plant_id       Int      @db.UnsignedInt
+  plant          Plant    @relation(fields: [plant_id], references: [id])
+  is_cultivation Boolean  @default(false)
+  type           String   @db.VarChar(255)
+  url            String   @db.VarChar(255)
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
 
   @@map("plant_media")
 }
