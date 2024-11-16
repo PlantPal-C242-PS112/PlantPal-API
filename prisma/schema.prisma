@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id                       Int       @id @default(autoincrement())
+  id                       Int       @id @default(autoincrement()) @db.UnsignedInt
   username                 String    @unique @db.VarChar(255)
   fullname                 String    @db.VarChar(255)
   email                    String    @unique
@@ -28,4 +28,29 @@ model User {
   updated_at                DateTime  @updatedAt
 
   @@map("users")
+}
+
+model Plant {
+  id               Int          @id @default(autoincrement()) @db.UnsignedInt
+  name             String       @db.VarChar(255)
+  description      String       @db.Text
+  cultivation_tips String       @db.Text
+  created_at       DateTime     @default(now())
+  updated_at       DateTime     @updatedAt
+  plant_media      PlantMedia[]
+
+  @@map("plants")
+}
+
+model PlantMedia {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  plant_id    Int      @db.UnsignedInt
+  plant       Plant    @relation(fields: [plant_id], references: [id])
+  cultivation Boolean  @default(false)
+  type        String   @db.VarChar(255)
+  url         String   @db.VarChar(255)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("plant_media")
 }
