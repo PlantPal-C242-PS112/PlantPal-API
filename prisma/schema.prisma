@@ -31,13 +31,14 @@ model User {
 }
 
 model Plant {
-  id               Int          @id @default(autoincrement()) @db.UnsignedInt
-  name             String       @db.VarChar(255)
-  description      String       @db.Text
-  cultivation_tips String       @db.Text
-  created_at       DateTime     @default(now())
-  updated_at       DateTime     @updatedAt
+  id               Int            @id @default(autoincrement()) @db.UnsignedInt
+  name             String         @db.VarChar(255)
+  description      String         @db.Text
+  cultivation_tips String         @db.Text
+  created_at       DateTime       @default(now())
+  updated_at       DateTime       @updatedAt
   plant_media      PlantMedia[]
+  plant_diseases   PlantDisease[]
 
   @@map("plants")
 }
@@ -47,10 +48,64 @@ model PlantMedia {
   plant_id       Int      @db.UnsignedInt
   plant          Plant    @relation(fields: [plant_id], references: [id])
   is_cultivation Boolean  @default(false)
-  type           String   @db.VarChar(255)
+  type           String   @db.VarChar(15)
   url            String   @db.VarChar(255)
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 
   @@map("plant_media")
+}
+
+model PlantDisease {
+  id            Int            @id @default(autoincrement()) @db.UnsignedInt
+  plant_id      Int            @db.UnsignedInt
+  plant         Plant          @relation(fields: [plant_id], references: [id])
+  name          String         @db.VarChar(255)
+  description   String         @db.Text
+  care_tips     String         @db.Text
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @updatedAt
+  disease_media DiseaseMedia[]
+  medicines     Medicine[]
+
+  @@map("plant_diseases")
+}
+
+model DiseaseMedia {
+  id         Int          @id @default(autoincrement()) @db.UnsignedInt
+  disease_id Int          @db.UnsignedInt
+  disease    PlantDisease @relation(fields: [disease_id], references: [id])
+  type       String       @db.VarChar(15)
+  url        String       @db.VarChar(255)
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+
+  @@map("disease_media")
+}
+
+model Medicine {
+  id           Int            @id @default(autoincrement()) @db.UnsignedInt
+  disease_id   Int            @db.UnsignedInt
+  disease      PlantDisease   @relation(fields: [disease_id], references: [id])
+  name         String         @db.VarChar(255)
+  description  String         @db.Text
+  usage_tips   String         @db.Text
+  image        String         @db.VarChar(255)
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+  MedicineLink MedicineLink[]
+
+  @@map("medicines")
+}
+
+model MedicineLink {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  medicine_id Int      @db.UnsignedInt
+  medicine    Medicine @relation(fields: [medicine_id], references: [id])
+  name        String   @db.VarChar(255)
+  url         String   @db.VarChar(255)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("medicine_links")
 }
