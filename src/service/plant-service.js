@@ -1,5 +1,5 @@
-
 prisma = require('../application/database');
+const { ResponseError } = require('../error/response-error');
 
 const getAllPlants = async () => {
 	const plants = await prisma.plant.findMany({
