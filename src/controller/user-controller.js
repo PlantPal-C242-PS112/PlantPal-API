@@ -73,6 +73,15 @@ const changeForgotPassword = async (request, response, next) => {
   }
 };
 
+const changePassword = async (request, response, next) => {
+  try {
+    await userService.changePassword(request.body, request.user.id);
+    sendSuccessResponse(response, null, 200, "Password Changed Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -82,4 +91,5 @@ module.exports = {
   sendForgotPasswordOTP,
   verifyForgotPasswordOTP,
   changeForgotPassword,
+  changePassword,
 };

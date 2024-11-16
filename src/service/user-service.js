@@ -205,6 +205,41 @@ const changeForgotPassword = async (request) => {
   });
 };
 
+const changePassword = async (request, userId) => {
+  const { old_password, new_password } = validate(validation.changePasswordValidation, request);
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user) {
+    throw new ResponseError(404, 'User not found');
+  }
+
+  if (old_password === new_password) {
+    throw new ResponseError(400, 'Old password and new password cannot be the same');
+  }
+
+  const isPasswordValid = await bcrypt.compare(old_password, user.password);
+
+  if (!isPasswordValid) {
+    throw new ResponseError(400, 'Old password is not valid');
+  }
+
+  const hashedPassword = await bcrypt.hash(new_password, 10);
+
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      password: hashedPassword,
+    }
+  });
+};
+
 module.exports = {
   register,
   login,
@@ -212,4 +247,5 @@ module.exports = {
   sendOTP,
   verifyOTP,
   changeForgotPassword,
+  changePassword,
 };

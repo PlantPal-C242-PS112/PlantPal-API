@@ -31,10 +31,16 @@ const changeForgotPasswordValidation = Joi.object({
   password: Joi.string().min(5).max(255).required(),
 });
 
+const changePasswordValidation = Joi.object({
+  old_password: Joi.string().min(5).max(255).required(),
+  new_password: Joi.string().min(5).max(255).required(),
+});
+
 module.exports = {
   registerUserValidation,
   loginUserValidation,
   sendOTPValidation,
   verifyOTPValidation,
   changeForgotPasswordValidation,
+  changePasswordValidation,
 };
