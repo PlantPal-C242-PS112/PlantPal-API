@@ -1,9 +1,12 @@
-const seedUsers = require('./user-seeder')
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+const seedUsers = require('./user-seeder');
+const { seedPlants, seedPlantMedia } = require('./plant-seeder');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 async function main() {
-  await seedUsers()
+  await seedUsers();
+  await seedPlants();
+  await seedPlantMedia();
 }
 
 main()
@@ -14,4 +17,4 @@ main()
     console.error(e)
     await prisma.$disconnect()
     process.exit(1)
-})
+  })
