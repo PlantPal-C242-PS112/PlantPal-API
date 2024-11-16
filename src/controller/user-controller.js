@@ -64,6 +64,15 @@ const verifyForgotPasswordOTP = async (request, response, next) => {
   }
 };
 
+const changeForgotPassword = async (request, response, next) => {
+  try {
+    await userService.changeForgotPassword(request.body);
+    sendSuccessResponse(response, null, 200, "Password Changed Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   login,
@@ -71,5 +80,6 @@ module.exports = {
   sendEmailVerificationOTP,
   verifyEmailVerificationOTP,
   sendForgotPasswordOTP,
-  verifyForgotPasswordOTP
+  verifyForgotPasswordOTP,
+  changeForgotPassword,
 };

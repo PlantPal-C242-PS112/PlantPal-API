@@ -4,6 +4,7 @@ const {
   loginUserValidation,
   sendOTPValidation,
   verifyOTPValidation,
+  changeForgotPasswordValidation,
 } = require('../validation/user-validation');
 const prisma = require('../application/database');
 const mailer = require('../application/mailer');
@@ -180,10 +181,41 @@ const verifyOTP = async (request, action) => {
   return user;
 };
 
+const changeForgotPassword = async (request) => {
+  const { email, password } = validate(changeForgotPasswordValidation, request);
+  
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+
+  if (!user) {
+    throw new ResponseError(404, 'User not found');
+  }
+
+  if (!user.forgot_password_verified) {
+    throw new ResponseError(400, 'User not verified to change password');
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      password: hashedPassword,
+      forgot_password_verified: false,
+    },
+  });
+};
+
 module.exports = {
   register,
   login,
   getUserDetails,
   sendOTP,
   verifyOTP,
+  changeForgotPassword,
 };

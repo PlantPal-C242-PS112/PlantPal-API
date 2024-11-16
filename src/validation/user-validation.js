@@ -26,9 +26,15 @@ const verifyOTPValidation = Joi.object({
   otp: Joi.string().length(5).required(),
 });
 
+const changeForgotPasswordValidation = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(5).max(255).required(),
+});
+
 module.exports = {
   registerUserValidation,
   loginUserValidation,
   sendOTPValidation,
   verifyOTPValidation,
+  changeForgotPasswordValidation,
 };

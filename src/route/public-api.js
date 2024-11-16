@@ -8,5 +8,6 @@ publicRouter.post('/register/send-otp', userController.sendEmailVerificationOTP)
 publicRouter.post('/register/verify-otp', userController.verifyEmailVerificationOTP);
 publicRouter.post('/forgot-password/send-otp', userController.sendForgotPasswordOTP);
 publicRouter.post('/forgot-password/verify-otp', userController.verifyForgotPasswordOTP);
+publicRouter.put('/forgot-password/change-password', userController.changeForgotPassword);
 
 module.exports = { publicRouter };
