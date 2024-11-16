@@ -11,7 +11,7 @@ const storage = require('../application/storage');
 dotenv.config();
 
 const register = async (request) => {
-  const user = validate(validation.registerUserValidation, request);
+  let user = validate(validation.registerUserValidation, request);
 
   const emailExist = await prisma.user.findUnique({
     where: {
@@ -35,9 +35,19 @@ const register = async (request) => {
 
   user.password = await bcrypt.hash(user.password, 10);
 
-  return prisma.user.create({
+  user = await prisma.user.create({
     data: user,
   });
+
+  user = {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    fullname: user.fullname,
+    email_verified: user.email_verified,
+  }
+
+  return user;
 };
 
 const login = async (request) => {
@@ -76,7 +86,7 @@ const login = async (request) => {
 };
 
 const getUserDetails = async (userId) => {
-  const user = prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       id: userId,
     },
