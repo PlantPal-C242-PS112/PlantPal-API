@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-async function seedPlantDisease() {
+async function seedPlantDiseases() {
 	const tomatoDisease = [
 		{
 			id: 1,
@@ -106,6 +106,6 @@ async function seedDiseaseMedia() {
 };
 
 module.exports = {
-	seedPlantDisease,
+	seedPlantDiseases,
 	seedDiseaseMedia
 };
