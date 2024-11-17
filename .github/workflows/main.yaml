@@ -107,6 +107,10 @@ jobs:
           env_vars: |
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             JWT_SECRET=${{ secrets.JWT_SECRET }}
+            SMTP_HOST=${{ secrets.SMTP_HOST }}
+            SMTP_PORT=${{ secrets.SMTP_PORT }}
+            SMTP_EMAIL=${{ secrets.SMTP_EMAIL }}
+            SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
