@@ -2,6 +2,7 @@ const express = require('express');
 const jwtMiddleware = require('../middleware/jwt-middleware');
 const userController = require('../controller/user-controller');
 const plantController = require('../controller/plant-controller');
+const diseaseController = require('../controller/disease-controller');
 const multer = require('multer');
 
 // Konfigurasi Multer untuk upload file
@@ -12,6 +13,7 @@ const upload = multer({
 
 const userRouter = new express.Router();
 const plantRouter = new express.Router();
+const diseaseRouter = new express.Router();
 userRouter.use(jwtMiddleware);
 userRouter.get('', userController.getUserDetails);
 userRouter.put('/change-password', userController.changePassword);
@@ -23,7 +25,11 @@ plantRouter.get('/:id', plantController.getById);
 plantRouter.get('/:id/cultivation-tips', plantController.getCultivationTips);
 plantRouter.get('/:id/diseases', plantController.getPlantDiseases);
 
+diseaseRouter.use(jwtMiddleware);
+diseaseRouter.get('/:id', diseaseController.getById);
+
 module.exports = {
 	userRouter,
-	plantRouter
+	plantRouter,
+	diseaseRouter
 };
