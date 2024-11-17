@@ -14,18 +14,19 @@ datasource db {
 }
 
 model User {
-  id                       Int       @id @default(autoincrement()) @db.UnsignedInt
-  username                 String    @unique @db.VarChar(255)
-  fullname                 String    @db.VarChar(255)
-  email                    String    @unique
-  password                 String    @db.VarChar(255)
-  profile_photo            String?   @db.VarChar(255)
-  otp                      String?   @db.VarChar(5)
+  id                       Int         @id @default(autoincrement()) @db.UnsignedInt
+  username                 String      @unique @db.VarChar(255)
+  fullname                 String      @db.VarChar(255)
+  email                    String      @unique
+  password                 String      @db.VarChar(255)
+  profile_photo            String?     @db.VarChar(255)
+  otp                      String?     @db.VarChar(5)
   otp_expiry               DateTime?
-  email_verified           Boolean   @default(false)
-  forgot_password_verified Boolean   @default(false)
-  created_at               DateTime  @default(now())
-  updated_at               DateTime  @updatedAt
+  email_verified           Boolean     @default(false)
+  forgot_password_verified Boolean     @default(false)
+  created_at               DateTime    @default(now())
+  updated_at               DateTime    @updatedAt
+  user_plants              UserPlant[]
 
   @@map("users")
 }
@@ -39,6 +40,7 @@ model Plant {
   updated_at       DateTime       @updatedAt
   plant_media      PlantMedia[]
   plant_diseases   PlantDisease[]
+  user_plants      UserPlant[]
 
   @@map("plants")
 }
@@ -108,4 +110,17 @@ model MedicineLink {
   updated_at  DateTime @updatedAt
 
   @@map("medicine_links")
+}
+
+model UserPlant {
+  user_id     Int       @db.UnsignedInt
+  plant_id    Int       @db.UnsignedInt
+  user        User      @relation(fields: [user_id], references: [id])
+  plant       Plant     @relation(fields: [plant_id], references: [id])
+  sowing_date DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@id([user_id, plant_id])
+  @@map("user_plants")
 }
