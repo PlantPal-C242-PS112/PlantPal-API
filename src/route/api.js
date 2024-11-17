@@ -6,8 +6,8 @@ const multer = require('multer');
 
 // Konfigurasi Multer untuk upload file
 const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 }, // Maks 5MB
+	storage: multer.memoryStorage(),
+	limits: { fileSize: 5 * 1024 * 1024 }, // Maks 5MB
 });
 
 const userRouter = new express.Router();
@@ -21,8 +21,9 @@ plantRouter.use(jwtMiddleware);
 plantRouter.get('', plantController.get);
 plantRouter.get('/:id', plantController.getById);
 plantRouter.get('/:id/cultivation-tips', plantController.getCultivationTips);
+plantRouter.get('/:id/diseases', plantController.getPlantDiseases);
 
 module.exports = {
-	userRouter, 
+	userRouter,
 	plantRouter
 };

@@ -27,10 +27,21 @@ const getCultivationTips = async (request, response, next) => {
 	} catch (error) {
 		next(error);
 	}
-}
+};
+
+const getPlantDiseases = async (request, response, next) => {
+	try {
+		const result = await plantService.getPlantDiseases(request.params.id);
+		message = result.length === 0 ? "Plant Diseases Fetched Successfully But No Diseases Found" : "Plant Diseases Fetched Successfully";
+		sendSuccessResponse(response, result, 200, message);
+	} catch (error) {
+		next(error);
+	}
+};
 
 module.exports = {
 	get,
 	getById,
-	getCultivationTips
+	getCultivationTips,
+	getPlantDiseases
 };

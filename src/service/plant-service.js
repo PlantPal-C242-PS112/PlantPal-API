@@ -21,13 +21,15 @@ const getPlantById = async (id) => {
 		where: {
 			id: parseInt(id)
 		},
-		include: {
+		select: {
+			id: true,
+			name: true,
+			description: true,
 			plant_media: {
 				where: {
 					is_cultivation: false
 				},
 				select: {
-					is_cultivation: false,
 					type: true,
 					url: true
 				}
@@ -48,13 +50,14 @@ const getCultivationTips = async (id) => {
 			id: parseInt(id)
 		},
 		select: {
+			id: true,
+			name: true,
 			cultivation_tips: true,
 			plant_media: {
 				where: {
 					is_cultivation: true
 				},
 				select: {
-					is_cultivation: false,
 					type: true,
 					url: true
 				}
@@ -69,8 +72,29 @@ const getCultivationTips = async (id) => {
 	return plant;
 }
 
+const getPlantDiseases = async (id) => {
+	const diseases = await prisma.plantDisease.findMany({
+		where: {
+			plant_id: parseInt(id)
+		},
+		select: {
+			id: true,
+			name: true,
+			disease_media: {
+				select: {
+					type: true,
+					url: true
+				}
+			}
+		}
+	});
+
+	return diseases;
+}
+
 module.exports = {
 	getAllPlants,
 	getPlantById,
-	getCultivationTips
+	getCultivationTips,
+	getPlantDiseases
 }

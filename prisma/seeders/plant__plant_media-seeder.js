@@ -131,13 +131,13 @@ async function seedPlantMedia() {
 	};
 
 	for (const plant in plantMedia) {
-		plantMedia[plant].forEach(async (media) => {
+		for (const media of plantMedia[plant]) {
 			await prisma.plantMedia.upsert({
 				where: { id: media.id },
 				update: {},
 				create: media,
 			});
-		});
+		}
 		console.log(`${plant} seeded`);
 	}
 };
