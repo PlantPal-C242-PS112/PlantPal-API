@@ -10,7 +10,7 @@ const errorMiddleware = (error, request, response, next) => {
   if (error instanceof ResponseError) {
     sendErrorResponse(response, error.status, error.message);
   } else {
-    sendErrorResponse(response, 500, 'Internal Server Error');
+    sendErrorResponse(response, 500, error.message);
   }
 };
 

@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE `users` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,
     `fullname` VARCHAR(255) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
@@ -10,8 +10,8 @@ CREATE TABLE `users` (
     `otp_expiry` DATETIME(3) NULL,
     `email_verified` BOOLEAN NOT NULL DEFAULT false,
     `forgot_password_verified` BOOLEAN NOT NULL DEFAULT false,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
+    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated_at` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `users_username_key`(`username`),
     UNIQUE INDEX `users_email_key`(`email`),

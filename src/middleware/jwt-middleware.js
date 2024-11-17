@@ -12,14 +12,23 @@ const jwtMiddleware = (req, res, next) => {
 
   // Ambil token dari header
   const token = authHeader.split(' ')[1];
+  let decoded;
 
   try {
     // Verifikasi token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded; // Simpan informasi pengguna dari token ke req.user
-    next(); // Lanjutkan ke handler berikutnya
   } catch (error) {
     throw new ResponseError(401, 'Invalid token');
+  } 
+
+  try {
+    if (!decoded.email_verified) {
+      throw new ResponseError(401, 'Email not verified');
+    }
+    next();
+  } catch (error) {
+    next(error);
   }
 };
 

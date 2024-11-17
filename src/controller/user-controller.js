@@ -28,8 +28,83 @@ const getUserDetails = async (request, response, next) => {
   }
 };
 
+const sendEmailVerificationOTP = async (request, response, next) => {
+  try {
+    const result = await userService.sendOTP(request.body, "verifikasi email");
+    sendSuccessResponse(response, null, 200, "OTP Sent Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const verifyEmailVerificationOTP = async (request, response, next) => {
+  try {
+    const result = await userService.verifyOTP(request.body, "verifikasi email");
+    sendSuccessResponse(response, null, 200, "OTP Verified Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const sendForgotPasswordOTP = async (request, response, next) => {
+  try {
+    const result = await userService.sendOTP(request.body, "lupa password");
+    sendSuccessResponse(response, null, 200, "OTP Sent Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const verifyForgotPasswordOTP = async (request, response, next) => {
+  try {
+    const result = await userService.verifyOTP(request.body, "lupa password");
+    sendSuccessResponse(response, null, 200, "OTP Verified Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const changeForgotPassword = async (request, response, next) => {
+  try {
+    await userService.changeForgotPassword(request.body);
+    sendSuccessResponse(response, null, 200, "Password Changed Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const changePassword = async (request, response, next) => {
+  try {
+    await userService.changePassword(request.body, request.user.id);
+    sendSuccessResponse(response, null, 200, "Password Changed Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateProfile = async (request, response, next) => {
+  try {
+    const userData = request.body;
+    const file = request.file;
+    const userId = request.user.id;
+
+    const result = await userService.updateProfile(userData, file, userId);
+
+    sendSuccessResponse(response, null, 200, "Profile Updated Successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   register,
   login,
   getUserDetails,
+  sendEmailVerificationOTP,
+  verifyEmailVerificationOTP,
+  sendForgotPasswordOTP,
+  verifyForgotPasswordOTP,
+  changeForgotPassword,
+  changePassword,
+  updateProfile,
 };
