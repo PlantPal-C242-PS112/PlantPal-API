@@ -4,6 +4,7 @@ const seedUsers = require('./user-seeder');
 const { seedPlants, seedPlantMedia } = require('./plant__plant_media-seeder');
 const { seedPlantDiseases, seedDiseaseMedia } = require('./plant_disease__disease_media-seeder');
 const { seedMedicines, seedMedicineLinks } = require('./medicine__medicine_link-seeder');
+const { seedUserPlants } = require('./user_plant-seeder');
 
 async function main() {
   await seedUsers();
@@ -13,6 +14,7 @@ async function main() {
   await seedDiseaseMedia();
   await seedMedicines();
   await seedMedicineLinks();
+  await seedUserPlants();
 }
 
 main()
