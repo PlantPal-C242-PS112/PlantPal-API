@@ -1,5 +1,7 @@
 prisma = require('../application/database');
 const { ResponseError } = require('../error/response-error');
+const { validate } = require('../validation/validation');
+const validation = require('../validation/user-plant-validation');
 
 const get = async (id, username) => {
 	const userPlant = await prisma.userPlant.findMany({
@@ -35,7 +37,9 @@ const get = async (id, username) => {
 	return userPlant;
 };
 
-const add = async (userId, plantId) => {
+const add = async (userId, request) => {
+	const { plantId } = validate(validation.userPlantIdValidation, request);
+
 	if (await prisma.userPlant.findUnique({
 		where: {
 			user_id_plant_id: {
@@ -55,7 +59,32 @@ const add = async (userId, plantId) => {
 	});
 };
 
+const remove = async (userId, request) => {
+	const { plantId } = validate(validation.userPlantIdValidation, request);
+
+	if (!await prisma.userPlant.findUnique({
+		where: {
+			user_id_plant_id: {
+				user_id: userId,
+				plant_id: plantId
+			}
+		}
+	})) {
+		throw new ResponseError(400, 'Plant Not Found');
+	}
+
+	return await prisma.userPlant.delete({
+		where: {
+			user_id_plant_id: {
+				user_id: userId,
+				plant_id: plantId
+			}
+		}
+	});
+};
+
 module.exports = {
 	get,
-	add
+	add,
+	remove
 };

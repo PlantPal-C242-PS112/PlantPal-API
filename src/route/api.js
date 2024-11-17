@@ -29,6 +29,7 @@ plantRouter.get('/:id/diseases', plantController.getPlantDiseases);
 userPlantRouter.use(jwtMiddleware);
 userPlantRouter.get('', userPlantController.get);
 userPlantRouter.post('', userPlantController.add);
+userPlantRouter.delete('', userPlantController.remove);
 
 module.exports = {
 	userRouter,
