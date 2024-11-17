@@ -25,6 +25,13 @@ const getById = async (id) => {
 					type: true,
 					url: true
 				}
+			},
+			medicines: {
+				select: {
+					id: true,
+					name: true,
+					description: true
+				}
 			}
 		}
 	});
@@ -32,6 +39,22 @@ const getById = async (id) => {
 	if (!disease) {
 		throw new ResponseError(404, 'Disease Not Found');
 	}
+
+	disease.medicines = await Promise.all(
+		disease.medicines.map(async (medicine) => {
+			const medicineLinks = await prisma.medicineLink.findMany({
+				where: {
+					medicine_id: medicine.id
+				},
+				select: {
+					id: true,
+					name: true,
+					url: true
+				},
+			});
+			return { ...medicine, medicine_links: medicineLinks };
+		})
+	);
 
 	return disease;
 }
