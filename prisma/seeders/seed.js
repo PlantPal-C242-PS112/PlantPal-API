@@ -9,11 +9,17 @@ const { seedUserPlants } = require('./user_plant-seeder');
 async function main() {
   await seedUsers();
   await seedPlants();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await seedPlantMedia();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await seedPlantDiseases();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await seedDiseaseMedia();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await seedMedicines();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await seedMedicineLinks();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await seedUserPlants();
 }
 
