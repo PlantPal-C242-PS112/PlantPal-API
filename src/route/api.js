@@ -4,6 +4,7 @@ const userController = require('../controller/user-controller');
 const plantController = require('../controller/plant-controller');
 const diseaseController = require('../controller/disease-controller');
 const userPlantController = require('../controller/user-plant-controller');
+const discussionController = require('../controller/discussion-controller');
 const multer = require('multer');
 
 // Konfigurasi Multer untuk upload file
@@ -16,6 +17,7 @@ const userRouter = new express.Router();
 const plantRouter = new express.Router();
 const diseaseRouter = new express.Router();
 const userPlantRouter = new express.Router();
+const discussionRouter = new express.Router();
 
 userRouter.use(jwtMiddleware);
 userRouter.get('', userController.getUserDetails);
@@ -36,9 +38,13 @@ userPlantRouter.get('', userPlantController.get);
 userPlantRouter.post('', userPlantController.add);
 userPlantRouter.delete('', userPlantController.remove);
 
+discussionRouter.use(jwtMiddleware);
+discussionRouter.get('', discussionController.getDiscussions);
+
 module.exports = {
 	userRouter,
 	plantRouter,
 	diseaseRouter,
-	userPlantRouter
+	userPlantRouter,
+	discussionRouter,
 };
