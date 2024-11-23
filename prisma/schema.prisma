@@ -14,19 +14,20 @@ datasource db {
 }
 
 model User {
-  id                       Int         @id @default(autoincrement()) @db.UnsignedInt
-  username                 String      @unique @db.VarChar(255)
-  fullname                 String      @db.VarChar(255)
-  email                    String      @unique
-  password                 String      @db.VarChar(255)
-  profile_photo            String?     @db.VarChar(255)
-  otp                      String?     @db.VarChar(5)
+  id                       Int          @id @default(autoincrement()) @db.UnsignedInt
+  username                 String       @unique @db.VarChar(255)
+  fullname                 String       @db.VarChar(255)
+  email                    String       @unique
+  password                 String       @db.VarChar(255)
+  profile_photo            String?      @db.VarChar(255)
+  otp                      String?      @db.VarChar(5)
   otp_expiry               DateTime?
-  email_verified           Boolean     @default(false)
-  forgot_password_verified Boolean     @default(false)
-  created_at               DateTime    @default(now())
-  updated_at               DateTime    @updatedAt
+  email_verified           Boolean      @default(false)
+  forgot_password_verified Boolean      @default(false)
+  created_at               DateTime     @default(now())
+  updated_at               DateTime     @updatedAt
   user_plants              UserPlant[]
+  discussions              Discussion[]
 
   @@map("users")
 }
@@ -41,6 +42,7 @@ model Plant {
   plant_media      PlantMedia[]
   plant_diseases   PlantDisease[]
   user_plants      UserPlant[]
+  discussions      Discussion[]
 
   @@map("plants")
 }
@@ -123,4 +125,20 @@ model UserPlant {
 
   @@id([user_id, plant_id])
   @@map("user_plants")
+}
+
+model Discussion {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  user_id     Int      @db.UnsignedInt
+  user        User     @relation(fields: [user_id], references: [id])
+  plant_id    Int      @db.UnsignedInt
+  plant       Plant    @relation(fields: [plant_id], references: [id])
+  title       String   @db.VarChar(255)
+  content     String   @db.Text
+  media_url   String   @db.VarChar(255)
+  total_likes Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("discussions")
 }

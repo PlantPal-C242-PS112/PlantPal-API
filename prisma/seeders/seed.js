@@ -5,6 +5,7 @@ const { seedPlants, seedPlantMedia } = require('./plant__plant_media-seeder');
 const { seedPlantDiseases, seedDiseaseMedia } = require('./plant_disease__disease_media-seeder');
 const { seedMedicines, seedMedicineLinks } = require('./medicine__medicine_link-seeder');
 const { seedUserPlants } = require('./user_plant-seeder');
+const seedDiscussions = require('./discussion-seeder');
 
 async function main() {
   await seedUsers();
@@ -21,6 +22,8 @@ async function main() {
   await seedMedicineLinks();
   await new Promise((resolve) => setTimeout(resolve, 1000));
   await seedUserPlants();
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await seedDiscussions();
 }
 
 main()
