@@ -99,7 +99,50 @@ const getDiscussionById = async (id) => {
   return discussion;
 }
 
+const createDiscussion = async (discussionData, file, userId) => {
+  const { title, content, plant_id } = validate(validation.createDiscussionValidation, discussionData);
+
+  let mediaUrl;
+  if (file) {
+    mediaUrl = await storage.uploadFile(file, "discussions");
+  } else {
+    throw new ResponseError(400, 'Media File is Required');
+  }
+
+  const discussion = await prisma.discussion.create({
+    data: {
+      title,
+      content,
+      plant_id,
+      user_id: userId,
+      media_url: mediaUrl,
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          fullname: true,
+          username: true,
+          profile_photo: true,
+        },
+      },
+      plant: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+
+  const { created_at, updated_at, ...rest } = discussion;
+  const orderedDiscussion = { ...rest, created_at, updated_at };
+
+  return orderedDiscussion;
+};
+
 module.exports = {
   getDiscussions,
   getDiscussionById,
+  createDiscussion,
 };

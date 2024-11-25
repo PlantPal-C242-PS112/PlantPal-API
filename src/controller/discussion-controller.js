@@ -22,7 +22,21 @@ const getDiscussionById = async (request, response, next) => {
   }
 }
 
+const createDiscussion = async (request, response, next) => {
+  try {
+    const discussionData = request.body;
+    const file = request.file;
+    const userId = request.user.id;
+
+    const result = await discussionService.createDiscussion(discussionData, file, userId);
+    sendSuccessResponse(response, result, 201, "Discussion Created Successfully");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getDiscussions,
   getDiscussionById,
+  createDiscussion,
 };
