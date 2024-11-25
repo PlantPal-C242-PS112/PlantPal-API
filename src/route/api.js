@@ -40,6 +40,7 @@ userPlantRouter.delete('', userPlantController.remove);
 
 discussionRouter.use(jwtMiddleware);
 discussionRouter.get('', discussionController.getDiscussions);
+discussionRouter.get('/:id', discussionController.getDiscussionById);
 
 module.exports = {
 	userRouter,

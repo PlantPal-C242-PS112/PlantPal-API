@@ -27,6 +27,7 @@ const getDiscussions = async (request) => {
           id: true,
           username: true,
           fullname: true,
+          profile_photo: true,
         }
       },
       plant: {
@@ -62,6 +63,43 @@ const getDiscussions = async (request) => {
   };
 }
 
+const getDiscussionById = async (id) => {
+  const discussion = await prisma.discussion.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+      media_url: true,
+      total_likes: true,
+      user: {
+        select: {
+          id: true,
+          username: true,
+          fullname: true,
+          profile_photo: true,
+        }
+      },
+      plant: {
+        select: {
+          id: true,
+          name: true,
+        }
+      },
+      updated_at: true,
+    }
+  });
+
+  if (!discussion) {
+    throw new ResponseError(404, 'Discussion Not Found');
+  }
+
+  return discussion;
+}
+
 module.exports = {
   getDiscussions,
+  getDiscussionById,
 };

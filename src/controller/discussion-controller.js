@@ -13,6 +13,16 @@ const getDiscussions = async (request, response, next) => {
   }
 }
 
+const getDiscussionById = async (request, response, next) => {
+  try {
+    const discussion = await discussionService.getDiscussionById(request.params.id);
+    sendSuccessResponse(response, discussion, 200, "Discussion Fetched Successfully");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getDiscussions,
+  getDiscussionById,
 };
