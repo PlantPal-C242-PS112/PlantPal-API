@@ -266,7 +266,9 @@ const updateProfile = async (userData, file, userId) => {
 
   let photoUrl;
   if (file) {
-    await storage.deleteFile(user.profile_photo);
+    if (user.profile_photo) {
+      await storage.deleteFile(user.profile_photo);
+    }
     photoUrl = await storage.uploadFile(file, "profile-pictures");
   }
 
