@@ -35,8 +35,23 @@ const createDiscussion = async (request, response, next) => {
   }
 }
 
+const updateDiscussion = async (request, response, next) => {
+  try {
+    const discussionId = request.params.id;
+    const discussionData = request.body;
+    const file = request.file;
+    const userId = request.user.id;
+
+    const result = await discussionService.updateDiscussion(discussionId, discussionData, file, userId);
+    sendSuccessResponse(response, result, 200, "Discussion Updated Successfully");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getDiscussions,
   getDiscussionById,
   createDiscussion,
+  updateDiscussion,
 };
