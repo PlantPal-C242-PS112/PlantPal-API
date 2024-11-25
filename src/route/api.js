@@ -43,6 +43,7 @@ discussionRouter.get('', discussionController.getDiscussions);
 discussionRouter.get('/:id', discussionController.getDiscussionById);
 discussionRouter.post('', upload.single('media'), discussionController.createDiscussion);
 discussionRouter.put('/:id', upload.single('media'), discussionController.updateDiscussion);
+discussionRouter.delete('/:id', discussionController.deleteDiscussion);
 
 module.exports = {
 	userRouter,

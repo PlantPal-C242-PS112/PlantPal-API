@@ -49,9 +49,22 @@ const updateDiscussion = async (request, response, next) => {
   }
 }
 
+const deleteDiscussion = async (request, response, next) => {
+  try {
+    const discussionId = request.params.id;
+    const userId = request.user.id;
+
+    await discussionService.deleteDiscussion(discussionId, userId);
+    sendSuccessResponse(response, null, 200, "Discussion Deleted Successfully");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getDiscussions,
   getDiscussionById,
   createDiscussion,
   updateDiscussion,
+  deleteDiscussion,
 };

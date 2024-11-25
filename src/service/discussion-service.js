@@ -205,9 +205,39 @@ const updateDiscussion = async (discussionId, discussionData, file, userId) => {
   return orderedDiscussion;
 }
 
+const deleteDiscussion = async (discussionId, userId) => {
+  const discussion = await prisma.discussion.findUnique({
+    where: {
+      id: parseInt(discussionId),
+    },
+    select: {
+      id: true,
+      user_id: true,
+      media_url: true,
+    }
+  });
+
+  if (!discussion) {
+    throw new ResponseError(404, 'Discussion Not Found');
+  }
+
+  if (discussion.user_id !== userId) {
+    throw new ResponseError(403, 'Forbidden');
+  }
+
+  await storage.deleteFile(discussion.media_url);
+
+  await prisma.discussion.delete({
+    where: {
+      id: parseInt(discussionId),
+    },
+  });
+}
+
 module.exports = {
   getDiscussions,
   getDiscussionById,
   createDiscussion,
   updateDiscussion,
+  deleteDiscussion,
 };
