@@ -37,11 +37,13 @@ model Plant {
   name             String         @db.VarChar(255)
   description      String         @db.Text
   cultivation_tips String         @db.Text
+  icon             String         @db.VarChar(255)
   created_at       DateTime       @default(now())
   updated_at       DateTime       @updatedAt
   plant_media      PlantMedia[]
   plant_diseases   PlantDisease[]
   user_plants      UserPlant[]
+  read_links       ReadLink[]
   discussions      Discussion[]
 
   @@map("plants")
@@ -58,6 +60,18 @@ model PlantMedia {
   updated_at     DateTime @updatedAt
 
   @@map("plant_media")
+}
+
+model ReadLink {
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  plant_id   Int      @db.UnsignedInt
+  plant      Plant    @relation(fields: [plant_id], references: [id])
+  title      String   @db.VarChar(255)
+  url        String   @db.VarChar(255)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("read_links")
 }
 
 model PlantDisease {

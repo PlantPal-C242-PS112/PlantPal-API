@@ -13,7 +13,7 @@ const get = async (request, response, next) => {
 
 const getById = async (request, response, next) => {
 	try {
-		const result = await plantService.getPlantById(request.params.id);
+		const result = await plantService.getPlantById(request.params.id, request.query);
 		sendSuccessResponse(response, result, 200, "Plant Fetched Successfully");
 	} catch (error) {
 		next(error);
