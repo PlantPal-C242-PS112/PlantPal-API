@@ -62,7 +62,8 @@ model PlantDisease {
   plant         Plant          @relation(fields: [plant_id], references: [id])
   name          String         @db.VarChar(255)
   description   String         @db.Text
-  care_tips     String         @db.Text
+  prevention    String         @db.Text
+  treatment     String         @db.Text
   created_at    DateTime       @default(now())
   updated_at    DateTime       @updatedAt
   disease_media DiseaseMedia[]

@@ -10,16 +10,15 @@ const getById = async (id) => {
 			id: parseInt(id)
 		},
 		select: {
-			id: true,
 			name: true,
 			plant: {
 				select: {
-					id: true,
 					name: true
 				}
 			},
 			description: true,
-			care_tips: true,
+			prevention: true,
+			treatment: true,
 			disease_media: {
 				select: {
 					type: true,
