@@ -64,6 +64,7 @@ model PlantDisease {
   description   String         @db.Text
   prevention    String         @db.Text
   treatment     String         @db.Text
+  image         String         @db.VarChar(255)
   created_at    DateTime       @default(now())
   updated_at    DateTime       @updatedAt
   disease_media DiseaseMedia[]

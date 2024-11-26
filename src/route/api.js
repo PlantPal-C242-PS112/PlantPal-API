@@ -26,6 +26,7 @@ plantRouter.get('/:id/cultivation-tips', plantController.getCultivationTips);
 plantRouter.get('/:id/diseases', plantController.getPlantDiseases);
 
 diseaseRouter.use(jwtMiddleware);
+diseaseRouter.get('', diseaseController.get);
 diseaseRouter.get('/:id', diseaseController.getById);
 
 module.exports = {
