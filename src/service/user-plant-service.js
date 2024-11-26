@@ -3,7 +3,7 @@ const { ResponseError } = require('../error/response-error');
 const { validate } = require('../validation/validation');
 const validation = require('../validation/user-plant-validation');
 
-const get = async (id, username) => {
+const get = async (id) => {
 	const userPlant = await prisma.userPlant.findMany({
 		where: {
 			user_id: parseInt(id)
@@ -11,27 +11,15 @@ const get = async (id, username) => {
 		select: {
 			plant_id: true,
 			sowing_date: true,
-			created_at: true,
-			updated_at: true,
 			plant: {
 				select: {
 					name: true,
-					description: true,
-					plant_media: {
-						where: {
-							is_cultivation: false
-						},
-						select: {
-							type: true,
-							url: true
-						}
-					}
+					icon: true
 				}
 			},
+			created_at: true,
+			updated_at: true
 		}
-	});
-	userPlant.unshift({
-		username: username
 	});
 
 	return userPlant;
