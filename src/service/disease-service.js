@@ -1,14 +1,8 @@
-// prisma = require('../application/database');
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
+prisma = require('../application/database');
 const { ResponseError } = require('../error/response-error');
 
-const getById = async (id) => {
-	const disease = await prisma.plantDisease.findUnique({
-		where: {
-			id: parseInt(id)
-		},
+const getAllDiseases = async () => {
+	const diseases = await prisma.plantDisease.findMany({
 		select: {
 			id: true,
 			name: true,
@@ -18,8 +12,29 @@ const getById = async (id) => {
 					name: true
 				}
 			},
+			image: true
+		}
+	});
+
+	return diseases;
+};
+
+const getById = async (id) => {
+	const disease = await prisma.plantDisease.findUnique({
+		where: {
+			id: parseInt(id)
+		},
+		select: {
+			name: true,
+			plant: {
+				select: {
+					name: true
+				}
+			},
 			description: true,
-			care_tips: true,
+			prevention: true,
+			treatment: true,
+			image: true,
 			disease_media: {
 				select: {
 					type: true,
@@ -47,12 +62,16 @@ const getById = async (id) => {
 					medicine_id: medicine.id
 				},
 				select: {
-					id: true,
 					name: true,
 					url: true
 				},
 			});
-			return { ...medicine, medicine_links: medicineLinks };
+			// return { ...medicine, medicine_links: medicineLinks };
+			return {
+				name: medicine.name,
+				description: medicine.description,
+				medicine_links: medicineLinks
+			};
 		})
 	);
 
@@ -60,5 +79,6 @@ const getById = async (id) => {
 }
 
 module.exports = {
+	getAllDiseases,
 	getById
 };

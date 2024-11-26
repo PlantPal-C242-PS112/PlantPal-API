@@ -13,7 +13,9 @@ CREATE TABLE `plant_diseases` (
     `plant_id` INTEGER UNSIGNED NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `description` TEXT NOT NULL,
-    `care_tips` TEXT NOT NULL,
+    `prevention` TEXT NOT NULL,
+    `treatment` TEXT NOT NULL,
+    `image` VARCHAR(255) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 

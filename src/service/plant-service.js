@@ -6,23 +6,23 @@ const getAllPlants = async () => {
 		select: {
 			id: true,
 			name: true,
-			description: true,
+			description: false,
 			cultivation_tips: false,
-			created_at: true,
-			updated_at: true
+			icon: true,
+			created_at: false,
+			updated_at: false,
 		}
 	});
 
 	return plants;
-}
+};
 
-const getPlantById = async (id) => {
+const getPlantById = async (id, query) => {
 	const plant = await prisma.plant.findUnique({
 		where: {
 			id: parseInt(id)
 		},
 		select: {
-			id: true,
 			name: true,
 			description: true,
 			plant_media: {
@@ -33,7 +33,15 @@ const getPlantById = async (id) => {
 					type: true,
 					url: true
 				}
-			}
+			},
+			// retrieve read links if query is true
+			read_links: query.read_links ? {
+				select: {
+					id: true,
+					title: true,
+					url: true
+				}
+			} : false
 		}
 	});
 
@@ -42,7 +50,7 @@ const getPlantById = async (id) => {
 	}
 
 	return plant;
-}
+};
 // get cultivation tips of a plant and its plant media
 const getCultivationTips = async (id) => {
 	const plant = await prisma.plant.findUnique({
@@ -50,7 +58,6 @@ const getCultivationTips = async (id) => {
 			id: parseInt(id)
 		},
 		select: {
-			id: true,
 			name: true,
 			cultivation_tips: true,
 			plant_media: {
@@ -70,7 +77,7 @@ const getCultivationTips = async (id) => {
 	}
 
 	return plant;
-}
+};
 
 const getPlantDiseases = async (id) => {
 	const diseases = await prisma.plantDisease.findMany({
@@ -78,7 +85,6 @@ const getPlantDiseases = async (id) => {
 			plant_id: parseInt(id)
 		},
 		select: {
-			id: true,
 			name: true,
 			disease_media: {
 				select: {
@@ -90,11 +96,11 @@ const getPlantDiseases = async (id) => {
 	});
 
 	return diseases;
-}
+};
 
 module.exports = {
 	getAllPlants,
 	getPlantById,
 	getCultivationTips,
 	getPlantDiseases
-}
+};
