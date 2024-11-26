@@ -1,11 +1,12 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const seedUsers = require('./user-seeder');
-const { seedPlants, seedPlantMedia } = require('./plant--plant-media-seeder');
+const { seedPlants, seedPlantMedia } = require('./plant__plant_media-seeder');
 const { seedReadLinks } = require('./read-link-seeder');
-const { seedPlantDiseases, seedDiseaseMedia } = require('./plant-disease--disease-media-seeder');
-const { seedMedicines, seedMedicineLinks } = require('./medicine--medicine-link-seeder');
-const { seedUserPlants } = require('./user-plant-seeder');
+const { seedPlantDiseases, seedDiseaseMedia } = require('./plant_disease__disease_media-seeder');
+const { seedMedicines, seedMedicineLinks } = require('./medicine__medicine_link-seeder');
+const { seedUserPlants } = require('./user_plant-seeder');
+const seedDiscussions = require('./discussion-seeder');
 
 const delay = (ms) => {
   return new Promise((resolve) => {
@@ -26,6 +27,7 @@ async function main() {
   await delay(1000);
   await seedMedicineLinks();
   await seedUserPlants();
+  await seedDiscussions();
 };
 
 main()
