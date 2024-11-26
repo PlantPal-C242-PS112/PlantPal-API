@@ -11,7 +11,7 @@ const delay = (ms) => {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
-}
+};
 
 async function main() {
   await seedUsers();
@@ -26,7 +26,7 @@ async function main() {
   await delay(1000);
   await seedMedicineLinks();
   await seedUserPlants();
-}
+};
 
 main()
   .then(async () => {
@@ -36,4 +36,4 @@ main()
     console.error(e)
     await prisma.$disconnect()
     process.exit(1)
-  })
+  });

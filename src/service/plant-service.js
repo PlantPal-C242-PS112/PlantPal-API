@@ -15,7 +15,7 @@ const getAllPlants = async () => {
 	});
 
 	return plants;
-}
+};
 
 const getPlantById = async (id, query) => {
 	const plant = await prisma.plant.findUnique({
@@ -50,7 +50,7 @@ const getPlantById = async (id, query) => {
 	}
 
 	return plant;
-}
+};
 // get cultivation tips of a plant and its plant media
 const getCultivationTips = async (id) => {
 	const plant = await prisma.plant.findUnique({
@@ -77,7 +77,7 @@ const getCultivationTips = async (id) => {
 	}
 
 	return plant;
-}
+};
 
 const getPlantDiseases = async (id) => {
 	const diseases = await prisma.plantDisease.findMany({
@@ -85,7 +85,6 @@ const getPlantDiseases = async (id) => {
 			plant_id: parseInt(id)
 		},
 		select: {
-			id: true,
 			name: true,
 			disease_media: {
 				select: {
@@ -97,11 +96,11 @@ const getPlantDiseases = async (id) => {
 	});
 
 	return diseases;
-}
+};
 
 module.exports = {
 	getAllPlants,
 	getPlantById,
 	getCultivationTips,
 	getPlantDiseases
-}
+};
