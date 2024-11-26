@@ -3,7 +3,7 @@ const { sendSuccessResponse } = require('../utils/response-helpers');
 
 const get = async (request, response, next) => {
 	try {
-		const result = await userPlantService.get(request.user.id, request.user.username);
+		const result = await userPlantService.get(request.user.id);
 		message = result.length === 0 ? "User Hasn't Added Any Plants Yet" : "User Plants Fetched Successfully";
 		sendSuccessResponse(response, result, 200, message);
 	} catch (error) {
