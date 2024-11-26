@@ -41,7 +41,7 @@ async function seedUsers() {
     },
   });
 
-  console.log({ alice, bob, charlie })
+  console.log('User: ' + alice.username + ', ' + bob.username + ', ' + charlie.username + ' seeded.');
 }
 
 module.exports = seedUsers

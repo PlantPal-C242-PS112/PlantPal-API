@@ -6,23 +6,23 @@ const getAllPlants = async () => {
 		select: {
 			id: true,
 			name: true,
-			description: true,
+			description: false,
 			cultivation_tips: false,
-			created_at: true,
-			updated_at: true
+			icon: true,
+			created_at: false,
+			updated_at: false,
 		}
 	});
 
 	return plants;
 }
 
-const getPlantById = async (id) => {
+const getPlantById = async (id, query) => {
 	const plant = await prisma.plant.findUnique({
 		where: {
 			id: parseInt(id)
 		},
 		select: {
-			id: true,
 			name: true,
 			description: true,
 			plant_media: {
@@ -33,7 +33,15 @@ const getPlantById = async (id) => {
 					type: true,
 					url: true
 				}
-			}
+			},
+			// retrieve read links if query is true
+			read_links: query.read_links ? {
+				select: {
+					id: true,
+					title: true,
+					url: true
+				}
+			} : false
 		}
 	});
 
@@ -50,7 +58,6 @@ const getCultivationTips = async (id) => {
 			id: parseInt(id)
 		},
 		select: {
-			id: true,
 			name: true,
 			cultivation_tips: true,
 			plant_media: {
