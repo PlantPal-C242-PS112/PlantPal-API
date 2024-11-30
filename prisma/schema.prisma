@@ -29,6 +29,7 @@ model User {
   user_plants              UserPlant[]
   discussions              Discussion[]
   comments                 Comment[]
+  Like                     Like[]
 
   @@map("users")
 }
@@ -157,6 +158,7 @@ model Discussion {
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   comments    Comment[]
+  Like        Like[]
 
   @@map("discussions")
 }
@@ -172,4 +174,15 @@ model Comment {
   updated_at    DateTime   @updatedAt
 
   @@map("comments")
+}
+
+model Like {
+  id            Int        @id @default(autoincrement()) @db.UnsignedInt
+  user_id       Int        @db.UnsignedInt
+  user          User       @relation(fields: [user_id], references: [id])
+  discussion_id Int        @db.UnsignedInt
+  discussion    Discussion @relation(fields: [discussion_id], references: [id])
+  created_at    DateTime   @default(now())
+
+  @@map("likes")
 }

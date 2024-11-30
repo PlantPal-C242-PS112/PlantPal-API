@@ -8,6 +8,7 @@ const { seedMedicines, seedMedicineLinks } = require('./medicine--medicine-link-
 const { seedUserPlants } = require('./user-plant-seeder');
 const seedDiscussions = require('./discussion-seeder');
 const seedComments = require('./comment-seeder');
+const seedLikes = require('./like-seeder');
 
 const delay = (ms) => {
   return new Promise((resolve) => {
@@ -31,6 +32,7 @@ async function main() {
   await seedDiscussions();
   await delay(1000);
   await seedComments();
+  await seedLikes();
 };
 
 main()
