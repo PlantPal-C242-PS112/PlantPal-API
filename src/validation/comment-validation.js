@@ -1,10 +1,9 @@
 const Joi = require("joi");
 
-const createDiscussionValidation = Joi.object({
-  title: Joi.string().required(),
+const createCommentValidation = Joi.object({
   content: Joi.string().required(),
 });
 
 module.exports = {
-  createDiscussionValidation,
+  createCommentValidation,
 };

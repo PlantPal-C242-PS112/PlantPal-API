@@ -47,6 +47,7 @@ discussionRouter.post('', upload.single('media'), discussionController.createDis
 discussionRouter.put('/:id', upload.single('media'), discussionController.updateDiscussion);
 discussionRouter.delete('/:id', discussionController.deleteDiscussion);
 discussionRouter.get('/:id/comments', commentController.getComments);
+discussionRouter.post('/:id/comments', commentController.createComment);
 
 module.exports = {
 	userRouter,
