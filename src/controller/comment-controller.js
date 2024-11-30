@@ -25,7 +25,21 @@ const createComment = async (request, response, next) => {
   }
 }
 
+const updateComment = async (request, response, next) => {
+  try {
+    const commentId = request.params.commentId;
+    const commentData = request.body;
+    const userId = request.user.id;
+
+    const result = await commentService.updateComment(commentData, userId, commentId);
+    sendSuccessResponse(response, result, 200, "Comment Updated Successfully");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getComments,
   createComment,
+  updateComment,
 };
