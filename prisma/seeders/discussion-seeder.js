@@ -73,4 +73,4 @@ async function seedDiscussions() {
  console.log('Discussions Seeded Successfully');
 }
 
-module.exports = seedDiscussions
+module.exports = seedDiscussions;

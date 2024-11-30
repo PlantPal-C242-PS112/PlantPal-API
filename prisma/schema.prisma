@@ -14,13 +14,13 @@ datasource db {
 }
 
 model User {
-  id                       Int         @id @default(autoincrement()) @db.UnsignedInt
-  username                 String      @unique @db.VarChar(255)
-  fullname                 String      @db.VarChar(255)
-  email                    String      @unique
-  password                 String      @db.VarChar(255)
-  profile_photo            String?     @db.VarChar(255) @default("https://storage.googleapis.com/plantpal-assets/profile-pictures/avatar-default.png")
-  otp                      String?     @db.VarChar(5)
+  id                       Int          @id @default(autoincrement()) @db.UnsignedInt
+  username                 String       @unique @db.VarChar(255)
+  fullname                 String       @db.VarChar(255)
+  email                    String       @unique
+  password                 String       @db.VarChar(255)
+  profile_photo            String?      @default("https://storage.googleapis.com/plantpal-assets/profile-pictures/avatar-default.png") @db.VarChar(255)
+  otp                      String?      @db.VarChar(5)
   otp_expiry               DateTime?
   email_verified           Boolean      @default(false)
   forgot_password_verified Boolean      @default(false)
@@ -28,6 +28,7 @@ model User {
   updated_at               DateTime     @updatedAt
   user_plants              UserPlant[]
   discussions              Discussion[]
+  comments                 Comment[]
 
   @@map("users")
 }
@@ -144,17 +145,31 @@ model UserPlant {
 }
 
 model Discussion {
-  id          Int      @id @default(autoincrement()) @db.UnsignedInt
-  user_id     Int      @db.UnsignedInt
-  user        User     @relation(fields: [user_id], references: [id])
-  plant_id    Int      @db.UnsignedInt
-  plant       Plant    @relation(fields: [plant_id], references: [id])
-  title       String   @db.VarChar(255)
-  content     String   @db.Text
-  media_url   String   @db.VarChar(255)
-  total_likes Int      @default(0)
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  user_id     Int       @db.UnsignedInt
+  user        User      @relation(fields: [user_id], references: [id])
+  plant_id    Int       @db.UnsignedInt
+  plant       Plant     @relation(fields: [plant_id], references: [id])
+  title       String    @db.VarChar(255)
+  content     String    @db.Text
+  media_url   String    @db.VarChar(255)
+  total_likes Int       @default(0)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  comments    Comment[]
 
   @@map("discussions")
+}
+
+model Comment {
+  id            Int        @id @default(autoincrement()) @db.UnsignedInt
+  user_id       Int        @db.UnsignedInt
+  user          User       @relation(fields: [user_id], references: [id])
+  discussion_id Int        @db.UnsignedInt
+  discussion    Discussion @relation(fields: [discussion_id], references: [id])
+  content       String     @db.Text
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+
+  @@map("comments")
 }
