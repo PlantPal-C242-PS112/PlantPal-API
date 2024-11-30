@@ -5,6 +5,7 @@ const plantController = require('../controller/plant-controller');
 const diseaseController = require('../controller/disease-controller');
 const userPlantController = require('../controller/user-plant-controller');
 const discussionController = require('../controller/discussion-controller');
+const commentController = require('../controller/comment-controller');
 const multer = require('multer');
 
 // Konfigurasi Multer untuk upload file
@@ -45,6 +46,7 @@ discussionRouter.get('/:id', discussionController.getDiscussionById);
 discussionRouter.post('', upload.single('media'), discussionController.createDiscussion);
 discussionRouter.put('/:id', upload.single('media'), discussionController.updateDiscussion);
 discussionRouter.delete('/:id', discussionController.deleteDiscussion);
+discussionRouter.get('/:id/comments', commentController.getComments);
 
 module.exports = {
 	userRouter,
