@@ -109,8 +109,35 @@ const updateComment = async (commentData, userId, commentId) => {
   return updatedComment;
 }
 
+const deleteComment = async (commentId, userId) => {
+  const comment = await prisma.comment.findUnique({
+    where: {
+      id: parseInt(commentId),
+    },
+    select: {
+      id: true,
+      user_id: true,
+    }
+  });
+
+  if (!comment) {
+    throw new ResponseError(404, "Comment not found");
+  }
+
+  if (comment.user_id !== userId) {
+    throw new ResponseError(403, "Forbidden");
+  }
+
+  await prisma.comment.delete({
+    where: {
+      id: parseInt(commentId),
+    }
+  });
+}
+
 module.exports = {
   getComments,
   createComment,
   updateComment,
+  deleteComment,
 };

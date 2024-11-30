@@ -38,8 +38,21 @@ const updateComment = async (request, response, next) => {
   }
 }
 
+const deleteComment = async (request, response, next) => {
+  try {
+    const commentId = request.params.commentId;
+    const userId = request.user.id;
+
+    await commentService.deleteComment(commentId, userId);
+    sendSuccessResponse(response, null, 200, "Comment Deleted Successfully");
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getComments,
   createComment,
   updateComment,
+  deleteComment,
 };
