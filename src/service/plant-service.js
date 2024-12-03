@@ -86,12 +86,7 @@ const getPlantDiseases = async (id) => {
 		},
 		select: {
 			name: true,
-			disease_media: {
-				select: {
-					type: true,
-					url: true
-				}
-			}
+			image: true
 		}
 	});
 
