@@ -67,6 +67,4 @@ const seedReadLinks = async () => {
 	console.log('Read Links Seeded Successfully');
 };
 
-module.exports = {
-	seedReadLinks
-};
+module.exports = seedReadLinks;
