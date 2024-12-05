@@ -3,8 +3,10 @@ const prisma = new PrismaClient();
 const seedUsers = require('./user-seeder');
 const { seedPlants, seedPlantMedia } = require('./plant--plant-media-seeder');
 const { seedReadLinks } = require('./read-link-seeder');
-const { seedPlantDiseases, seedDiseaseMedia } = require('./plant-disease--disease-media-seeder');
-const { seedMedicines, seedMedicineLinks } = require('./medicine--medicine-link-seeder');
+const seedPlantDiseases = require('./plant-disease-seeder');
+const seedDiseaseMedia = require('./disease-media-seeder');
+const seedMedicines = require('./medicine-seeder');
+const seedMedicineLinks = require('./medicine-link-seeder');
 const { seedUserPlants } = require('./user-plant-seeder');
 const seedDiscussions = require('./discussion-seeder');
 
