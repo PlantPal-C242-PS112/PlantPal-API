@@ -37,7 +37,6 @@ const getPlantById = async (id, query) => {
 			// retrieve read links if query is true
 			read_links: query.read_links ? {
 				select: {
-					id: true,
 					title: true,
 					url: true
 				}
@@ -86,12 +85,7 @@ const getPlantDiseases = async (id) => {
 		},
 		select: {
 			name: true,
-			disease_media: {
-				select: {
-					type: true,
-					url: true
-				}
-			}
+			image: true
 		}
 	});
 

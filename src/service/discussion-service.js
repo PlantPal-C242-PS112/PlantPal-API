@@ -7,7 +7,7 @@ const { ResponseError } = require('../error/response-error');
 const getDiscussions = async (request) => {
   const { page, limit, keywords, plant_id } = validate(validation.getDiscussionsValidation, request.query);
 
-  const discussions = await prisma.discussion.findMany({
+  let discussions = await prisma.discussion.findMany({
     skip: (page - 1) * limit,
     take: limit,
     where: {
@@ -37,7 +37,25 @@ const getDiscussions = async (request) => {
         }
       },
       updated_at: true,
+    },
+    orderBy: {
+      created_at: 'desc',
+    },
+  });
+
+  const likedDiscussions = await prisma.like.findMany({
+    where: {
+      user_id: request.user.id,
+    },
+    select: {
+      discussion_id: true,
     }
+  });
+
+  discussions = discussions.map((discussion) => {
+    discussion.is_liked = likedDiscussions.some((likedDiscussion) => likedDiscussion.discussion_id === discussion.id);
+    const { updated_at, ...rest } = discussion;
+    return { ...rest, updated_at };
   });
 
   const total_discussions = await prisma.discussion.count({
@@ -61,7 +79,7 @@ const getDiscussions = async (request) => {
     discussions,
     metadata,
   };
-}
+};
 
 const getDiscussionById = async (id) => {
   const discussion = await prisma.discussion.findUnique({
@@ -89,15 +107,15 @@ const getDiscussionById = async (id) => {
         }
       },
       updated_at: true,
-    }
+    },
   });
 
   if (!discussion) {
     throw new ResponseError(404, 'Discussion Not Found');
-  }
+  };
 
   return discussion;
-}
+};
 
 const createDiscussion = async (discussionData, file, userId) => {
   const { title, content, plant_id } = validate(validation.createDiscussionValidation, discussionData);
@@ -107,7 +125,7 @@ const createDiscussion = async (discussionData, file, userId) => {
     mediaUrl = await storage.uploadFile(file, "discussions");
   } else {
     throw new ResponseError(400, 'Media File is Required');
-  }
+  };
 
   const discussion = await prisma.discussion.create({
     data: {
@@ -157,11 +175,11 @@ const updateDiscussion = async (discussionId, discussionData, file, userId) => {
 
   if (!discussion) {
     throw new ResponseError(404, 'Discussion Not Found');
-  }
+  };
 
   if (discussion.user_id !== userId) {
     throw new ResponseError(403, 'Forbidden');
-  }
+  };
 
   let mediaUrl;
   if (file) {
@@ -169,7 +187,7 @@ const updateDiscussion = async (discussionId, discussionData, file, userId) => {
     mediaUrl = await storage.uploadFile(file, "discussions");
   } else {
     mediaUrl = discussion.media_url;
-  }
+  };
 
   const updatedDiscussion = await prisma.discussion.update({
     where: {
@@ -203,7 +221,7 @@ const updateDiscussion = async (discussionId, discussionData, file, userId) => {
   const orderedDiscussion = { ...rest, created_at, updated_at };
 
   return orderedDiscussion;
-}
+};
 
 const deleteDiscussion = async (discussionId, userId) => {
   const discussion = await prisma.discussion.findUnique({
@@ -219,11 +237,11 @@ const deleteDiscussion = async (discussionId, userId) => {
 
   if (!discussion) {
     throw new ResponseError(404, 'Discussion Not Found');
-  }
+  };
 
   if (discussion.user_id !== userId) {
     throw new ResponseError(403, 'Forbidden');
-  }
+  };
 
   await storage.deleteFile(discussion.media_url);
 
@@ -232,7 +250,7 @@ const deleteDiscussion = async (discussionId, userId) => {
       id: parseInt(discussionId),
     },
   });
-}
+};
 
 module.exports = {
   getDiscussions,
