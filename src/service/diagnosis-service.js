@@ -1,8 +1,8 @@
 const tfjs = require('@tensorflow/tfjs-node');
 
 const loadModel = async () => {
-	// const model = await tfjs.loadLayersModel('file://model/model.json');
-	const model = await tfjs.loadGraphModel('file://model/model.json');
+	// const model = await tfjs.loadLayersModel('https://storage.googleapis.com/plantpal-assets/temp/model/model.json');
+	const model = await tfjs.loadGraphModel('https://storage.googleapis.com/plantpal-assets/temp/model/model.json');
 	return model;
 }
 
