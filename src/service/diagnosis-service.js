@@ -1,7 +1,8 @@
 const tfjs = require('@tensorflow/tfjs-node');
 
 const loadModel = async () => {
-	const model = await tfjs.loadLayersModel('file://model/model.json');
+	// const model = await tfjs.loadLayersModel('file://model/model.json');
+	const model = await tfjs.loadGraphModel('file://model/model.json');
 	return model;
 }
 
@@ -53,6 +54,18 @@ const predict = async (model, request) => {
 			predictedClass: 'Unknown'
 		};
 	}
+
+	// take top 3 predictions, in percentage, 2 decimal places in float
+	const top3 = prediction
+		.map((value, index) => ({ value, index }))
+		.sort((a, b) => b.value - a.value)
+		.slice(0, 3)
+		.map(({ value, index }) => ({
+			class_name: class_names[index],
+			percentage: parseFloat((value * 100).toFixed(2)),
+		}));
+	
+	console.log(top3);
 
 	const predictedClass = class_names[predictedIndex];
 
