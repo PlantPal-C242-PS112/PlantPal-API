@@ -37,7 +37,6 @@ const getPlantById = async (id, query) => {
 			// retrieve read links if query is true
 			read_links: query.read_links ? {
 				select: {
-					id: true,
 					title: true,
 					url: true
 				}
