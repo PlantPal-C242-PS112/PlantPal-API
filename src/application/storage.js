@@ -1,7 +1,7 @@
 const { Storage } = require('@google-cloud/storage');
 
 const storage = new Storage({
-  keyFilename: './cloud-storage-key.json',
+  keyFilename: './service-account-key.json',
   projectId: '454827052627',
 });
 const bucketName = 'plantpal-assets';
