@@ -2,175 +2,173 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function seedPlantMedia() {
+	const cultivation_data = {
+		is_cultivation: true,
+		type: 'image',
+		created_at: new Date(),
+		updated_at: new Date()
+	};
+	const plant_media_data = {
+		is_cultivation: false,
+		type: 'image',
+		created_at: new Date(),
+		updated_at: new Date()
+	};
+
 	const plantMedia = {
 		tomatoMedia: [
 			{
 				plant_id: 1,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Tomato.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			},
 			{
 				plant_id: 1,
-				is_cultivation: true,
-				type: 'image',
 				url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Tomatoes-on-the-bush.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			},
 			{
 				plant_id: 1,
-				is_cultivation: true,
-				type: 'image',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Tomat_Muda_Solanum_lycopersicum.jpg/1280px-Tomat_Muda_Solanum_lycopersicum.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/Tomat_Muda_Solanum_lycopersicum.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/bibit%20tomat.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/panen%20tomat.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/pemupukan%20tanaman%20tomat.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/penanaman%20bibit%20tomat.jpeg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/pengendalian%20hama%20dan%20penyakit.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/pengolahan%20tanah%20lahan%20tomat.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/penyemaian%20pada%20tumbuhan%20tomat.png',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/penyiangan%20dan%20pembubuhan%20tanaman%20tomat.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/penyiraman%20tanaman%20tomat.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 1,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/tomato/persiapan%20lahan%20tomat.jpg',
+				...cultivation_data
 			},
 		],
 		strawberryMedia: [
 			{
 				plant_id: 2,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Strawberry.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			},
 			{
 				plant_id: 2,
-				is_cultivation: true,
-				type: 'image',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Garden_strawberry_%28Fragaria_%C3%97_ananassa%29_single2.jpg/1920px-Garden_strawberry_%28Fragaria_%C3%97_ananassa%29_single2.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/strawberry/media%20tanaman%20strawberry.jpg',
+				...cultivation_data
 			},
 			{
 				plant_id: 2,
-				is_cultivation: true,
-				type: 'image',
-				url: 'https://th.bing.com/th/id/OIP.hxAJlQzr1PuSmw9s6NI9QAHaE8?w=281&h=188&c=7&r=0&o=5&pid=1.7',
-				created_at: new Date(),
-				updated_at: new Date()
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/strawberry/perawatan%20tanaman%20strawberry.jpeg',
+				...cultivation_data
+			},
+			{
+				plant_id: 2,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/strawberry/tanaman%20strawberry.jpg',
+				...cultivation_data
 			},
 		],
 		paprikaMedia: [
 			{
 				plant_id: 3,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Bell%20Pepper.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
-			},
-			{
-				plant_id: 3,
-				is_cultivation: true,
-				type: 'image',
-				url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Cachi_02.jpg/220px-Cachi_02.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
-			},
-			{
-				plant_id: 3,
-				is_cultivation: true,
-				type: 'image',
-				url: 'https://th.bing.com/th/id/OIP.MU902Zr1mnvTKBqgawVzGAHaGL?rs=1&pid=ImgDetMain',
-				created_at: new Date(),
-				updated_at: new Date()
-			},
+				...plant_media_data
+			}
 		],
 		squashMedia: [
 			{
 				plant_id: 4,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Squash.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			}
 		],
 		grapeMedia: [
 			{
 				plant_id: 5,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Grape.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			}
 		],
 		appleMedia: [
 			{
 				plant_id: 6,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Apple.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			}
 		],
 		orangeMedia: [
 			{
 				plant_id: 7,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Orange.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
+			},
+			{
+				plant_id: 7,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/orange/Bibit%20Jeruk.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 7,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/orange/Jeruk.jpg',
+				...cultivation_data
+			},
+			{
+				plant_id: 7,
+				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_cultivation/orange/Menyiram%20Jeruk.jpg',
+				...cultivation_data
 			}
 		],
 		potatoMedia: [
 			{
 				plant_id: 8,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Potato.png',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			}
 		],
 		cornMedia: [
 			{
 				plant_id: 9,
-				is_cultivation: false,
-				type: 'image',
 				url: 'https://storage.googleapis.com/plantpal-assets/plants/plant_media/Corn.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
+				...plant_media_data
 			}
-		],
-		mangoMedia: [
-			{
-				plant_id: 10,
-				is_cultivation: false,
-				type: 'image',
-				url: 'https://gkmdblog.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2023/12/16193752/Blog-Mangga-Indonsia.jpeg',
-				created_at: new Date(),
-				updated_at: new Date()
-			}
-		],
-		cassavaMedia: [
-			{
-				plant_id: 11,
-				is_cultivation: false,
-				type: 'image',
-				url: 'https://blog.lambangjaya.com/wp-content/uploads/2024/08/pngtree-cassava-garden-background-field-grow-photo-picture-image_5400130-1024x683.png',
-				created_at: new Date(),
-				updated_at: new Date()
-			}
-		],
-		riceMedia: [
-			{
-				plant_id: 12,
-				is_cultivation: false,
-				type: 'image',
-				url: 'https://ketahananpangan.semarangkota.go.id/v3/content/images/Padi.jpg',
-				created_at: new Date(),
-				updated_at: new Date()
-			}
-		],
+		]
 	};
 
 	for (const plant in plantMedia) {
