@@ -4,6 +4,7 @@ const { userRouter } = require('../route/api');
 const { plantRouter } = require('../route/api');
 const { diseaseRouter } = require('../route/api');
 const { userPlantRouter } = require('../route/api');
+const { diagnosisRouter } = require('../route/api');
 const { discussionRouter } = require('../route/api');
 const { errorMiddleware } = require('../middleware/error-middleware');
 
@@ -16,6 +17,7 @@ web.use('/api/v1/plants', plantRouter);
 web.use('/api/v1/diseases', diseaseRouter);
 web.use('/api/v1/user-plants', userPlantRouter);
 web.use('/api/v1/discussions', discussionRouter);
+web.use('/api/v1/diagnosis', diagnosisRouter);
 
 web.use(errorMiddleware);
 

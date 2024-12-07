@@ -284,6 +284,14 @@ const updateProfile = async (userData, file, userId) => {
     data,
   });
 
+  user = {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    fullname: user.fullname,
+    profile_photo: user.profile_photo,
+  };
+
   return user;
 }
 
