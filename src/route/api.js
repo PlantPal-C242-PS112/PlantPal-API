@@ -45,6 +45,9 @@ userPlantRouter.delete('', userPlantController.remove);
 
 diagnosisRouter.use(jwtMiddleware);
 diagnosisRouter.post('', upload.single('image'), diagnosisController.diagnose);
+diagnosisRouter.get('/history', diagnosisController.getPredictions);
+diagnosisRouter.patch('/history/:id', diagnosisController.deletePrediction);
+diagnosisRouter.patch('/history', diagnosisController.deleteAllPredictions);
 
 discussionRouter.use(jwtMiddleware);
 discussionRouter.get('', discussionController.getDiscussions);
