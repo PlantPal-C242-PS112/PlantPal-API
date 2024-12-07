@@ -4,6 +4,7 @@ const userController = require('../controller/user-controller');
 const plantController = require('../controller/plant-controller');
 const diseaseController = require('../controller/disease-controller');
 const userPlantController = require('../controller/user-plant-controller');
+const diagnosisController = require('../controller/diagnosis-controller');
 const discussionController = require('../controller/discussion-controller');
 const commentController = require('../controller/comment-controller');
 const likeController = require('../controller/like-controller');
@@ -19,6 +20,7 @@ const userRouter = new express.Router();
 const plantRouter = new express.Router();
 const diseaseRouter = new express.Router();
 const userPlantRouter = new express.Router();
+const diagnosisRouter = new express.Router();
 const discussionRouter = new express.Router();
 
 userRouter.use(jwtMiddleware);
@@ -41,6 +43,12 @@ userPlantRouter.get('', userPlantController.get);
 userPlantRouter.post('', userPlantController.add);
 userPlantRouter.delete('', userPlantController.remove);
 
+diagnosisRouter.use(jwtMiddleware);
+diagnosisRouter.post('', upload.single('image'), diagnosisController.diagnose);
+diagnosisRouter.get('/history', diagnosisController.getPredictions);
+diagnosisRouter.patch('/history/:id', diagnosisController.deletePrediction);
+diagnosisRouter.patch('/history', diagnosisController.deleteAllPredictions);
+
 discussionRouter.use(jwtMiddleware);
 discussionRouter.get('', discussionController.getDiscussions);
 discussionRouter.get('/:id', discussionController.getDiscussionById);
@@ -58,5 +66,6 @@ module.exports = {
 	plantRouter,
 	diseaseRouter,
 	userPlantRouter,
+	diagnosisRouter,
 	discussionRouter,
 };

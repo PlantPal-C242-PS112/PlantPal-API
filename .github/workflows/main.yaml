@@ -76,8 +76,8 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - name: Create cloud-storage-key.json
-        run: echo '${{ secrets.GCS_KEY }}' > cloud-storage-key.json
+      - name: Create service-account-key.json
+        run: echo '${{ secrets.GCS_KEY }}' > service-account-key.json
 
       - name: Build Docker Image
         run: docker build -t "${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE }}:${{ github.sha }}" ./
@@ -117,6 +117,7 @@ jobs:
             SMTP_PORT=${{ secrets.SMTP_PORT }}
             SMTP_EMAIL=${{ secrets.SMTP_EMAIL }}
             SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+            MODEL_PATH=${{ secrets.MODEL_PATH }}
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
