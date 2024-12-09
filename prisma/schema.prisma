@@ -112,7 +112,6 @@ model Medicine {
   name         String         @db.VarChar(255)
   description  String         @db.Text
   usage_tips   String         @db.Text
-  image        String         @db.VarChar(255)
   created_at   DateTime       @default(now())
   updated_at   DateTime       @updatedAt
   MedicineLink MedicineLink[]
