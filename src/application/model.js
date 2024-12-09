@@ -3,7 +3,6 @@ const { saveBucket, bucket } = require('./storage');
 
 const loadModel = async () => {
 	const modelPath = process.env.MODEL_PATH;
-	console.log(modelPath);
 
 	const jsonFile = saveBucket.file("model/model.json");
 	const binFile = saveBucket.file("model/group1-shard1of1.bin");
