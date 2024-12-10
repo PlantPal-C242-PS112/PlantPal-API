@@ -21,7 +21,7 @@ const predict = async (request) => {
 		{ class_name: 'Jagung__Northern Corn Leaf Blight', plant_id: 9, disease_id: 24 },
 		{ class_name: 'Jagung__Healthy', plant_id: 9, disease_id: 0 },
 		{ class_name: 'Anggur__Black Rot (Bercak Daun)', plant_id: 5, disease_id: 13 },
-		{ class_name: 'Anggur__Black Measles (Esca/Campak Hitam)', plant_id: 5, disease_id: 14 },
+		{ class_name: 'Anggur__Black Measles (Esca)', plant_id: 5, disease_id: 14 },
 		{ class_name: 'Anggur__Isariopsis Leaf Spot (Leaf Blight)', plant_id: 5, disease_id: 15 },
 		{ class_name: 'Anggur__Healthy', plant_id: 5, disease_id: 0 },
 		{ class_name: 'Jeruk__Huanglongbing (Citrus Greening)', plant_id: 7, disease_id: 19 },
