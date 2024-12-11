@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function seedDiseaseMedia() {
-	const tomatoDiseaseMedia = [
+	const diseaseMedia = [
 		{
 			disease_id: 1,
 			type: 'image',
@@ -196,7 +196,7 @@ async function seedDiseaseMedia() {
 			type: 'image',
 			url: 'https://storage.googleapis.com/plantpal-assets/diseases/Tomato_Mosaic%20Virus/Tomato_Mosaic%20Virus%20Leaf.JPG',
 		},
-		
+
 		{
 			disease_id: 10,
 			type: 'image',
@@ -518,12 +518,11 @@ async function seedDiseaseMedia() {
 		},
 	];
 
-	tomatoDiseaseMedia.forEach(async (media) => {
-		await prisma.diseaseMedia.create({
-			data: media
-		});
-		console.log(`Tomato Disease Media ${media.url} seeded`);
+	await prisma.diseaseMedia.createMany({
+		data: diseaseMedia,
 	});
+	
+	console.log(`Disease Media seeded`);
 };
 
 module.exports = seedDiseaseMedia;

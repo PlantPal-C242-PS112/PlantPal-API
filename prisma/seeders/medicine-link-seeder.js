@@ -240,12 +240,11 @@ const seedMedicineLinks = async () => {
 		},
 	];
 
-	medicineLinks.forEach(async (medicineLink) => {
-		await prisma.medicineLink.create({
-			data: medicineLink
-		});
-		console.log(`Medicine Link '${medicineLink.name}' seeded`);
+	await prisma.medicineLink.createMany({
+		data: medicineLinks,
 	});
+	
+	console.log(`Medicine Links seeded`);
 };
 
 module.exports = seedMedicineLinks;

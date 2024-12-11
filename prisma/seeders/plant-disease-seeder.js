@@ -246,8 +246,8 @@ async function seedPlantDiseases() {
 				update: {},
 				create: disease,
 			});
-			console.log(`${key} Disease ${disease.name} seeded`);
 		});
+		console.log(`${key} seeded`);
 	}
 };
 

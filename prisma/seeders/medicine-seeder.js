@@ -180,8 +180,9 @@ const seedMedicines = async () => {
 			update: {},
 			create: medicine,
 		});
-		console.log(`Medicine '${medicine.name}' seeded`);
 	});
+	
+	console.log(`Medicines seeded`);
 };
 
 module.exports = seedMedicines;
