@@ -40,8 +40,8 @@ diseaseRouter.get('/:id', diseaseController.getById);
 
 userPlantRouter.use(jwtMiddleware);
 userPlantRouter.get('', userPlantController.get);
-userPlantRouter.post('', userPlantController.add);
-userPlantRouter.delete('', userPlantController.remove);
+userPlantRouter.post('/:plantId', userPlantController.add);
+userPlantRouter.delete('/:plantId', userPlantController.remove);
 
 diagnosisRouter.use(jwtMiddleware);
 diagnosisRouter.post('', upload.single('image'), diagnosisController.diagnose);

@@ -9,7 +9,7 @@ const diagnose = async (request, response, next) => {
 		const createdAt = new Date();
 
 		let message, diseaseData, classNameFile;
-		if (top3[0].confidence_score < 50) {
+		if (top3[0].confidence_score < 70) {
 			message = "We are not sure about the disease. Please try again with a clearer image."
 			classNameFile = 'Unknown';
 		} else {

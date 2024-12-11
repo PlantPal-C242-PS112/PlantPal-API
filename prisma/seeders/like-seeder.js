@@ -115,7 +115,7 @@ async function seedLikes() {
     ],
   });
 
-  console.log('Likes seeded successfully');
+  console.log('Likes seeded');
 };
 
 module.exports = seedLikes;

@@ -112,7 +112,6 @@ model Medicine {
   name         String         @db.VarChar(255)
   description  String         @db.Text
   usage_tips   String         @db.Text
-  image        String         @db.VarChar(255)
   created_at   DateTime       @default(now())
   updated_at   DateTime       @updatedAt
   MedicineLink MedicineLink[]
@@ -125,7 +124,7 @@ model MedicineLink {
   medicine_id Int      @db.UnsignedInt
   medicine    Medicine @relation(fields: [medicine_id], references: [id])
   name        String   @db.VarChar(255)
-  url         String   @db.VarChar(255)
+  url         String   @db.Text
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -148,9 +147,9 @@ model UserPlant {
 model Discussion {
   id          Int       @id @default(autoincrement()) @db.UnsignedInt
   user_id     Int       @db.UnsignedInt
-  user        User      @relation(fields: [user_id], references: [id])
+  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
   plant_id    Int       @db.UnsignedInt
-  plant       Plant     @relation(fields: [plant_id], references: [id])
+  plant       Plant     @relation(fields: [plant_id], references: [id], onDelete: Cascade)
   title       String    @db.VarChar(255)
   content     String    @db.Text
   media_url   String    @db.VarChar(255)
@@ -166,9 +165,9 @@ model Discussion {
 model Comment {
   id            Int        @id @default(autoincrement()) @db.UnsignedInt
   user_id       Int        @db.UnsignedInt
-  user          User       @relation(fields: [user_id], references: [id])
+  user          User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
   discussion_id Int        @db.UnsignedInt
-  discussion    Discussion @relation(fields: [discussion_id], references: [id])
+  discussion    Discussion @relation(fields: [discussion_id], references: [id], onDelete: Cascade)
   content       String     @db.Text
   created_at    DateTime   @default(now())
   updated_at    DateTime   @updatedAt
@@ -179,9 +178,9 @@ model Comment {
 model Like {
   id            Int        @id @default(autoincrement()) @db.UnsignedInt
   user_id       Int        @db.UnsignedInt
-  user          User       @relation(fields: [user_id], references: [id])
+  user          User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
   discussion_id Int        @db.UnsignedInt
-  discussion    Discussion @relation(fields: [discussion_id], references: [id])
+  discussion    Discussion @relation(fields: [discussion_id], references: [id], onDelete: Cascade)
   created_at    DateTime   @default(now())
 
   @@map("likes")

@@ -79,7 +79,7 @@ async function seedDiscussions() {
     ],
   });
 
- console.log('Discussions Seeded Successfully');
+  console.log('Discussions seeded');
 }
 
 module.exports = seedDiscussions;
