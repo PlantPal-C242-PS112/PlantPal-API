@@ -31,7 +31,7 @@ async function seedUsers() {
     ],
   });
 
-  console.log("Users Seeded Successfully");
+  console.log("Users seeded");
 }
 
 module.exports = seedUsers;

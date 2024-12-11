@@ -28,7 +28,7 @@ const seedUserPlants = async () => {
 		]
 	});
 
-	console.log('User Plants Seeded Successfully');
+	console.log('User Plants seeded');
 };
 
 module.exports = {

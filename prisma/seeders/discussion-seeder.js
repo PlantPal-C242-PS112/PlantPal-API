@@ -9,7 +9,7 @@ async function seedDiscussions() {
         plant_id: 1,
         title: '1 Daun tanaman tomat saya muncul bercak',
         content: 'Tolong bantu saya, daun pada tanaman tomat saya muncul bercak. Apa yang harus saya lakukan?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-tomat.jpg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-tomat1.jpg',
         total_likes: 3,
       },
       {
@@ -17,7 +17,7 @@ async function seedDiscussions() {
         plant_id: 2,
         title: '1 Daun tanaman strawberry saya muncul bercak ungu',
         content: 'Bunga pada tanaman strawberry saya muncul bercak ungu. Penyakit apa ini? Apa yang harus saya lakukan untuk mengatasinya?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-strawberry.jpeg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-strawberry1.jpg',
         total_likes: 3,
       },
       {
@@ -25,7 +25,7 @@ async function seedDiscussions() {
         plant_id: 3,
         title: '1 Hama pada tanaman paprika',
         content: 'Tanaman paprika saya diserang hama. Apa yang harus saya lakukan untuk mengatasinya?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-paprika.jpg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-paprika1.jpg',
         total_likes: 3,
       },
       {
@@ -33,7 +33,7 @@ async function seedDiscussions() {
         plant_id: 1,
         title: '2 Daun tanaman tomat saya muncul bercak',
         content: 'Tolong bantu saya, daun pada tanaman tomat saya muncul bercak. Apa yang harus saya lakukan?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-tomat.jpg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-tomat2.jpg',
         total_likes: 3,
       },
       {
@@ -41,7 +41,7 @@ async function seedDiscussions() {
         plant_id: 2,
         title: '2 Daun tanaman strawberry saya muncul bercak ungu',
         content: 'Bunga pada tanaman strawberry saya muncul bercak ungu. Penyakit apa ini? Apa yang harus saya lakukan untuk mengatasinya?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-strawberry.jpeg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-strawberry2.jpg',
         total_likes: 3,
       },
       {
@@ -49,7 +49,7 @@ async function seedDiscussions() {
         plant_id: 3,
         title: '2 Hama pada tanaman paprika',
         content: 'Tanaman paprika saya diserang hama. Apa yang harus saya lakukan untuk mengatasinya?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-paprika.jpg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-paprika2.jpg',
         total_likes: 3,
       },
       {
@@ -57,7 +57,7 @@ async function seedDiscussions() {
         plant_id: 1,
         title: '3 Daun tanaman tomat saya muncul bercak',
         content: 'Tolong bantu saya, daun pada tanaman tomat saya muncul bercak. Apa yang harus saya lakukan?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-tomat.jpg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-tomat3.jpg',
         total_likes: 3,
       },
       {
@@ -65,7 +65,7 @@ async function seedDiscussions() {
         plant_id: 2,
         title: '3 Daun tanaman strawberry saya muncul bercak ungu',
         content: 'Bunga pada tanaman strawberry saya muncul bercak ungu. Penyakit apa ini? Apa yang harus saya lakukan untuk mengatasinya?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-strawberry.jpeg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-strawberry3.jpg',
         total_likes: 3,
       },
       {
@@ -73,13 +73,13 @@ async function seedDiscussions() {
         plant_id: 3,
         title: '3 Hama pada tanaman paprika',
         content: 'Tanaman paprika saya diserang hama. Apa yang harus saya lakukan untuk mengatasinya?',
-        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-paprika.jpg',
+        media_url: 'https://storage.googleapis.com/plantpal-assets/discussions/penyakit-paprika3.jpg',
         total_likes: 3,
       },
     ],
   });
 
- console.log('Discussions Seeded Successfully');
+  console.log('Discussions seeded');
 }
 
 module.exports = seedDiscussions;

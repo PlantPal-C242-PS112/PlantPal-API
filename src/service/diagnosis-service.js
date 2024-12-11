@@ -21,7 +21,7 @@ const predict = async (request) => {
 		{ class_name: 'Jagung__Northern Corn Leaf Blight', plant_id: 9, disease_id: 24 },
 		{ class_name: 'Jagung__Healthy', plant_id: 9, disease_id: 0 },
 		{ class_name: 'Anggur__Black Rot (Bercak Daun)', plant_id: 5, disease_id: 13 },
-		{ class_name: 'Anggur__Black Measles (Esca/Campak Hitam)', plant_id: 5, disease_id: 14 },
+		{ class_name: 'Anggur__Black Measles (Esca)', plant_id: 5, disease_id: 14 },
 		{ class_name: 'Anggur__Isariopsis Leaf Spot (Leaf Blight)', plant_id: 5, disease_id: 15 },
 		{ class_name: 'Anggur__Healthy', plant_id: 5, disease_id: 0 },
 		{ class_name: 'Jeruk__Huanglongbing (Citrus Greening)', plant_id: 7, disease_id: 19 },
@@ -45,22 +45,26 @@ const predict = async (request) => {
 		{ class_name: 'Tomat__Healthy', plant_id: 1, disease_id: 0 },
 	];
 
-	// the req shape is [ 1, 224, 224, 3 ]
-	const tensor = tfjs.node.decodeImage(imageBuffer, 3).resizeNearestNeighbor([224, 224]).expandDims().toFloat().div(255);
-	const result = model.predict(tensor);
-	const prediction = (await result.array())[0];
+	const top3 = tfjs.tidy(() => {
+		const tensor = tfjs.node.decodeImage(imageBuffer, 3)
+			.resizeNearestNeighbor([224, 224])
+			.expandDims()
+			.toFloat()
+			.div(255);
+		const result = model.predict(tensor);
+		const prediction = result.arraySync()[0];
 
-	// take top 3 predictions, in percentage, 2 decimal places
-	const top3 = prediction
-		.map((value, index) => ({ value, index }))
-		.sort((a, b) => b.value - a.value)
-		.slice(0, 3)
-		.map(({ value, index }) => ({
-			class_name: classes[index].class_name,
-			plant_id: classes[index].plant_id,
-			disease_id: classes[index].disease_id,
-			confidence_score: parseFloat((value * 100).toFixed(2)),
-		}));
+		return prediction
+			.map((value, index) => ({ value, index }))
+			.sort((a, b) => b.value - a.value)
+			.slice(0, 3)
+			.map(({ value, index }) => ({
+				class_name: classes[index].class_name,
+				plant_id: classes[index].plant_id,
+				disease_id: classes[index].disease_id,
+				confidence_score: parseFloat((value * 100).toFixed(2)),
+			}));
+	});
 
 	return top3;
 }

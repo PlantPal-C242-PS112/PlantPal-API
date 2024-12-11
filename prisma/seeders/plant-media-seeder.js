@@ -492,7 +492,7 @@ async function seedPlantMedia() {
 				data: media
 			});
 		}
-		console.log(`${plant} seeded`);
+		console.log(`${plant} media seeded`);
 	}
 };
 

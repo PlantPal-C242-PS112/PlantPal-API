@@ -36,7 +36,7 @@ const getDiscussions = async (request) => {
           name: true,
         }
       },
-      updated_at: true,
+      created_at: true,
     },
     orderBy: {
       created_at: 'desc',
@@ -81,7 +81,7 @@ const getDiscussions = async (request) => {
   };
 };
 
-const getDiscussionById = async (id) => {
+const getDiscussionById = async (id, userId) => {
   const discussion = await prisma.discussion.findUnique({
     where: {
       id: parseInt(id),
@@ -106,7 +106,7 @@ const getDiscussionById = async (id) => {
           name: true,
         }
       },
-      updated_at: true,
+      created_at: true,
     },
   });
 
@@ -114,7 +114,18 @@ const getDiscussionById = async (id) => {
     throw new ResponseError(404, 'Discussion Not Found');
   };
 
-  return discussion;
+  const likedDiscussion = await prisma.like.findFirst({
+    where: {
+      user_id: userId,
+      discussion_id: discussion.id,
+    },
+  });
+
+  const { updated_at, ...rest } = discussion;
+  discussion_is_liked = likedDiscussion ? true : false;
+  const orderedDiscussion = { ...rest, is_liked: discussion_is_liked, updated_at };
+
+  return orderedDiscussion;
 };
 
 const createDiscussion = async (discussionData, file, userId) => {

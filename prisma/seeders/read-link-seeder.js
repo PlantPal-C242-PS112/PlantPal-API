@@ -33,7 +33,7 @@ const seedReadLinks = async () => {
 			title: 'Pacific Pests, Pathogens, Weeds & Pesticides',
 			url: 'https://apps.lucidcentral.org/pppw_v12/text/web_full/entities/index.htm'
 		},
-		
+
 		{
 			plant_id: 2,
 			title: 'Strawberry - Wikipedia bahasa Indonesia, ensiklopedia bebas',
@@ -44,7 +44,7 @@ const seedReadLinks = async () => {
 			title: 'Cara Menanam Buah Strawberry - Cara Budidaya',
 			url: 'https://carabudidaya.co.id/cara-menanam-buah-strawberry/'
 		},
-		
+
 		{
 			plant_id: 3,
 			title: 'Paprika - Wikipedia bahasa Indonesia, ensiklopedia bebas',
@@ -81,7 +81,7 @@ const seedReadLinks = async () => {
 			title: `Cara Menanam Labu - wikiHow`,
 			url: 'https://id.wikihow.com/Menanam-Labu'
 		},
-		
+
 		{
 			plant_id: 5,
 			title: `Anggur - Wikipedia bahasa Indonesia, ensiklopedia bebas`,
@@ -167,7 +167,7 @@ const seedReadLinks = async () => {
 		data: readLinks
 	});
 
-	console.log('Read Links Seeded Successfully');
+	console.log('Read Links seeded');
 };
 
 module.exports = seedReadLinks;

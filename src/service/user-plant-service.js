@@ -25,8 +25,8 @@ const get = async (id) => {
 	return userPlant;
 };
 
-const add = async (userId, request) => {
-	const { plantId } = validate(validation.userPlantIdValidation, request);
+const add = async (userId, plantId) => {
+	({ plantId } = validate(validation.userPlantIdValidation, { plantId }));
 
 	if (await prisma.userPlant.findUnique({
 		where: {
@@ -47,8 +47,8 @@ const add = async (userId, request) => {
 	});
 };
 
-const remove = async (userId, request) => {
-	const { plantId } = validate(validation.userPlantIdValidation, request);
+const remove = async (userId, plantId) => {
+	({ plantId } = validate(validation.userPlantIdValidation, { plantId }));
 
 	if (!await prisma.userPlant.findUnique({
 		where: {
