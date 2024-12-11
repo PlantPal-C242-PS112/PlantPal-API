@@ -36,7 +36,7 @@ const getDiscussions = async (request) => {
           name: true,
         }
       },
-      updated_at: true,
+      created_at: true,
     },
     orderBy: {
       created_at: 'desc',
@@ -106,7 +106,7 @@ const getDiscussionById = async (id, userId) => {
           name: true,
         }
       },
-      updated_at: true,
+      created_at: true,
     },
   });
 
