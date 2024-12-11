@@ -84,6 +84,7 @@ const getPlantDiseases = async (id) => {
 			plant_id: parseInt(id)
 		},
 		select: {
+			id: true,
 			name: true,
 			image: true
 		}
