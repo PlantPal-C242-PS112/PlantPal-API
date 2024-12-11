@@ -13,7 +13,7 @@ const get = async (request, response, next) => {
 
 const add = async (request, response, next) => {
 	try {
-		const result = await userPlantService.add(request.user.id, request.body);
+		const result = await userPlantService.add(request.user.id, request.params.plantId);
 		sendSuccessResponse(response, result, 201, "Plant Added Successfully");
 	} catch (error) {
 		next(error);
@@ -22,7 +22,7 @@ const add = async (request, response, next) => {
 
 const remove = async (request, response, next) => {
 	try {
-		result = await userPlantService.remove(request.user.id, request.body);
+		result = await userPlantService.remove(request.user.id, request.params.plantId);
 		sendSuccessResponse(response, result, 204, "Plant Removed Successfully");
 	} catch (error) {
 		next(error);
