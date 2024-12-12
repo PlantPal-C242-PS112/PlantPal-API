@@ -6,9 +6,9 @@ dotenv.config();
 
 loadModel().then((model) => {
   web.locals.model = model;
-});
-const port = 8080;
-
-web.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  const port = 8080;
+  
+  web.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 });
