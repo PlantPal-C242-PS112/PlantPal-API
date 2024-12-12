@@ -266,7 +266,7 @@ const updateProfile = async (userData, file, userId) => {
 
   let photoUrl;
   if (file) {
-    if (user.profile_photo) {
+    if (user.profile_photo && user.profile_photo != 'https://storage.googleapis.com/plantpal-assets/profile-pictures/avatar-default.png') {
       await storage.deleteFile(user.profile_photo);
     }
     photoUrl = await storage.uploadFile(file, "profile-pictures");
