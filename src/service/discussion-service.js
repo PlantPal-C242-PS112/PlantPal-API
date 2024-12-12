@@ -54,8 +54,8 @@ const getDiscussions = async (request) => {
 
   discussions = discussions.map((discussion) => {
     discussion.is_liked = likedDiscussions.some((likedDiscussion) => likedDiscussion.discussion_id === discussion.id);
-    const { updated_at, ...rest } = discussion;
-    return { ...rest, updated_at };
+    const { created_at, ...rest } = discussion;
+    return { ...rest, created_at };
   });
 
   const total_discussions = await prisma.discussion.count({
@@ -121,9 +121,9 @@ const getDiscussionById = async (id, userId) => {
     },
   });
 
-  const { updated_at, ...rest } = discussion;
-  discussion_is_liked = likedDiscussion ? true : false;
-  const orderedDiscussion = { ...rest, is_liked: discussion_is_liked, updated_at };
+  const { created_at, ...rest } = discussion;
+  const discussion_is_liked = likedDiscussion ? true : false;
+  const orderedDiscussion = { ...rest, is_liked: discussion_is_liked, created_at };
 
   return orderedDiscussion;
 };
